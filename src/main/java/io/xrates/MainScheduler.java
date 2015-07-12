@@ -1,15 +1,15 @@
 package io.xrates;
 
-import java.util.logging.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class MainScheduler {
 	
-	static Logger log = Logger.getLogger(MainScheduler.class.getName());
-	
+	Logger log = LoggerFactory.getLogger(MainScheduler.class.getName());
 	@Scheduled(fixedRate = 100)
 	public void foo() {
 		System.out.println("Hello");
