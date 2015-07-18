@@ -17,8 +17,8 @@ public class MainScheduler {
 		System.out.println("Initiating");
 		log.info("Jaadu !!");
 		
-		DBSRateProvider dbsrpObj = new DBSRateProvider();
-		dbsrpObj.fetchRates();
+		DBSRateProviderImpl dbsrpObj = new DBSRateProviderImpl();
+		System.out.println(dbsrpObj.inr2sgd());
 	}
 
 }

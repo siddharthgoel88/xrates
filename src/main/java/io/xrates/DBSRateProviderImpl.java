@@ -4,14 +4,12 @@ import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 /*
  * This is an implementation of RateProvider interface
  * implementing the currency conversion method for bank
  * DBS
  * */
-public class DBSRateProvider implements RateProvider {
+public class DBSRateProviderImpl implements IRateProvider {
 	private double toINR=0.0;
 	private double toSGD=0.0;
 	private String resourceURL = "http://www.dbs.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page";
@@ -40,8 +38,7 @@ public class DBSRateProvider implements RateProvider {
 
 	}
 
-	@Override
-	public void fetchRates() throws IOException {
+	private void fetchRates() throws IOException {
 			System.out.println("Starting to fetch url");
 			Document doc = Jsoup.connect(resourceURL).get();
 			Element rateTableDiv = doc.select("div.rates-table").get(1);
