@@ -56,11 +56,9 @@ public class DBSRateProvider implements RateProvider {
 		for (int i = 0;i<length;i++){
 			Element currTableRow = rateTable.select("tr").get(i);
 			String curr = currTableRow.select("td").get(0).text();
-			String s = "Indian Rupee";
-			String curr2 = curr.trim();
-			System.out.println(curr2.length());
-			if((currTableRow.select("td").get(0).text()).equals(new String("Brunei Dollar"))){
-				System.out.println("Indian currency found");
+			String cleanedCurr = curr.replace("\u00a0","");
+			String enumInput  = "Indian Rupee";	//This will the currency selected from enum
+			if(cleanedCurr.equals(enumInput)){
 				targetCurr = Double.parseDouble(currTableRow.select("td").get(1).text());
 				equivalentsgd = Double.parseDouble(currTableRow.select("td").get(2).text());
 				System.out.println("For " + targetCurr + " rupees you get " + equivalentsgd + " S$.");
