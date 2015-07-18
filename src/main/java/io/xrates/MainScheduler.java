@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class MainScheduler {
 	
 	Logger log = LoggerFactory.getLogger(MainScheduler.class.getName());
-	@Scheduled(fixedRate = 2000)
+	@Scheduled(fixedRate = 5000)
 	public void getRate() throws IOException {
 		System.out.println("Initiating");
 		log.info("Jaadu !!");

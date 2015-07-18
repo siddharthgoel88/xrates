@@ -17,6 +17,7 @@ public class DBSRateProvider implements RateProvider {
 	private String resourceURL = "http://www.dbs.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page";
 	private FROM_CURRENCY from_curr = FROM_CURRENCY.Indian_Rupee;
 	
+	
 	@Override
 	public double sgd2inr() {
 		try {
@@ -29,7 +30,7 @@ public class DBSRateProvider implements RateProvider {
 	}
 
 	@Override
-	public double inr2sqd() {
+	public double inr2sgd() {
 		try {
 			fetchRates();
 		} catch(IOException io) {
@@ -50,13 +51,28 @@ public class DBSRateProvider implements RateProvider {
 	
 	public void getRateForInputCurr(FROM_CURRENCY from_curr, Element rateTable){
 		int length = rateTable.select("tr").size();	//will be used to loop through to parse entire table
-		Element indianTableRow = rateTable.select("tr").get(3);
-		double inr = Double.parseDouble(indianTableRow.select("td").get(1).text());
-		double equivalentsgd = Double.parseDouble(indianTableRow.select("td").get(2).text());
-		System.out.println("For " + inr + " rupees you get " + equivalentsgd + " S$.");
-		toSGD = equivalentsgd/inr;
-		toINR = (1.0)/toSGD;
-		return ;
+		double targetCurr = 0.0;
+		double equivalentsgd = 0.0;
+		for (int i = 0;i<length;i++){
+			Element currTableRow = rateTable.select("tr").get(i);
+			String curr = currTableRow.select("td").get(0).text();
+			String s = "Indian Rupee";
+			String curr2 = curr.trim();
+			System.out.println(curr2.length());
+			if((currTableRow.select("td").get(0).text()).equals(new String("Brunei Dollar"))){
+				System.out.println("Indian currency found");
+				targetCurr = Double.parseDouble(currTableRow.select("td").get(1).text());
+				equivalentsgd = Double.parseDouble(currTableRow.select("td").get(2).text());
+				System.out.println("For " + targetCurr + " rupees you get " + equivalentsgd + " S$.");
+				toSGD = equivalentsgd/targetCurr;
+				toINR = (1.0)/toSGD;
+				return ;
+			}
+		}
+		
+//		double inr = Double.parseDouble(indianTableRow.select("td").get(1).text());
+		
+		
 	}
 	
 	

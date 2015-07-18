@@ -12,6 +12,6 @@ public interface RateProvider {
 	
 	public void fetchRates() throws IOException;
 	public double sgd2inr();
-	public double inr2sqd();
+	public double inr2sgd();
 	
 }
