@@ -4,6 +4,8 @@ import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /*
  * This is an implementation of RateProvider interface
  * implementing the currency conversion method for bank
@@ -13,9 +15,12 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 	private double toINR=0.0;
 	private double toSGD=0.0;
 	private String resourceURL = "http://www.dbs.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page";
-	private FROM_CURRENCY from_curr = FROM_CURRENCY.Indian_Rupee;
+	private Logger log = LoggerFactory.getLogger(DBSRateProviderImpl.class.getName());
+	private Rates rates = getAllRates();
+	private String from_curr = "Indian Rupee";
 	
 	
+	/*
 	public double sgd2inr() {
 		try {
 			fetchRates();
@@ -35,6 +40,7 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 		return toSGD;
 
 	}
+	*/
 
 	private void fetchRates() throws IOException {
 			System.out.println("Starting to fetch url");
@@ -44,7 +50,7 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 			getRateForInputCurr(from_curr, rateTable);
 	}
 	
-	public void getRateForInputCurr(FROM_CURRENCY from_curr, Element rateTable){
+	private void getRateForInputCurr(String from_curr, Element rateTable){
 		int length = rateTable.select("tr").size();	//will be used to loop through to parse entire table
 		double targetCurr = 0.0;
 		double equivalentsgd = 0.0;
@@ -59,6 +65,8 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 				System.out.println("For " + targetCurr + " rupees you get " + equivalentsgd + " S$.");
 				toSGD = equivalentsgd/targetCurr;
 				toINR = (1.0)/toSGD;
+				rates.setRate(Currency.INR, toINR);
+				rates.setRate(Currency.SGD, 1.0);
 				return;
 			}
 		}
@@ -69,15 +77,25 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 	}
 
 	@Override
-	public double convert(Currency baseCurrency, Currency targetCurrency) {
-		// TODO Auto-generated method stub
-		return 0;
+	protected void updateRates() {
+		log.debug("Inside updateRates of DBSRateProviderImpl");
+		rates.setBaseCurrency(Currency.SGD);
+		updateListOfCurrencies();
+		try {
+			fetchRates();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	@Override
-	protected void updateRates() {
-		// TODO Auto-generated method stub
-		
+
+	/*
+	 * TODO: Need to crawl page and add all currencies.
+	 * Currently hardcoded it.
+	 */
+	private void updateListOfCurrencies() {
+		rates.addAvailableCurrency(Currency.INR);
+		rates.addAvailableCurrency(Currency.SGD);
 	}
 
 }

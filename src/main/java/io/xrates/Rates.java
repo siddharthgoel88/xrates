@@ -1,12 +1,13 @@
 package io.xrates;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Rates {
 	private Currency baseCurrency = null;
-	private List<Currency> availableCurrencies = null;
+	private List<Currency> availableCurrencies = new ArrayList<Currency>();
 	private Map<Currency, Double> rate = new HashMap<Currency, Double>();
 
 	public Currency getBaseCurrency() {
@@ -15,6 +16,10 @@ public class Rates {
 
 	public void setBaseCurrency(Currency baseCurrency) {
 		this.baseCurrency = baseCurrency;
+	}
+	
+	public void addAvailableCurrency(Currency cur) {
+		availableCurrencies.add(cur);
 	}
 
 	public List<Currency> getAvailableCurrencies() {

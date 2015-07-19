@@ -17,8 +17,8 @@ public class MainScheduler {
 		System.out.println("Initiating");
 		log.info("Jaadu !!");
 		
-		DBSRateProviderImpl dbsrpObj = new DBSRateProviderImpl();
-		System.out.println(dbsrpObj.inr2sgd());
+		IRateProvider dbsrpObj = new DBSRateProviderImpl();
+		System.out.println(dbsrpObj.convert(Currency.SGD, Currency.INR));
 	}
 
 }
