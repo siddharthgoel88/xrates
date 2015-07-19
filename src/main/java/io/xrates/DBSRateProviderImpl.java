@@ -62,7 +62,7 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 			if(cleanedCurr.equals(enumInput)){
 				targetCurr = Double.parseDouble(currTableRow.select("td").get(1).text());
 				equivalentsgd = Double.parseDouble(currTableRow.select("td").get(2).text());
-				System.out.println("For " + targetCurr + " rupees you get " + equivalentsgd + " S$.");
+				//System.out.println("For " + targetCurr + " rupees you get " + equivalentsgd + " S$.");
 				toSGD = equivalentsgd/targetCurr;
 				toINR = (1.0)/toSGD;
 				rates.setRate(Currency.INR, toINR);

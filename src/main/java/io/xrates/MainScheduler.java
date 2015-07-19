@@ -14,11 +14,10 @@ public class MainScheduler {
 	Logger log = LoggerFactory.getLogger(MainScheduler.class.getName());
 	@Scheduled(fixedRate = 5000)
 	public void getRate() throws IOException {
-		System.out.println("Initiating");
-		log.info("Jaadu !!");
+		log.debug("Running scheduler");
 		
 		IRateProvider dbsrpObj = new DBSRateProviderImpl();
-		System.out.println(dbsrpObj.convert(Currency.SGD, Currency.INR));
+		log.info(String.valueOf(dbsrpObj.convert(Currency.SGD, Currency.INR)));
 	}
 
 }
