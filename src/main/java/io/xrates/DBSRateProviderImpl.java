@@ -9,14 +9,13 @@ import org.jsoup.nodes.Element;
  * implementing the currency conversion method for bank
  * DBS
  * */
-public class DBSRateProviderImpl implements IRateProvider {
+public class DBSRateProviderImpl extends AbstractRateProvider {
 	private double toINR=0.0;
 	private double toSGD=0.0;
 	private String resourceURL = "http://www.dbs.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page";
 	private FROM_CURRENCY from_curr = FROM_CURRENCY.Indian_Rupee;
 	
 	
-	@Override
 	public double sgd2inr() {
 		try {
 			fetchRates();
@@ -27,7 +26,6 @@ public class DBSRateProviderImpl implements IRateProvider {
 		
 	}
 
-	@Override
 	public double inr2sgd() {
 		try {
 			fetchRates();
@@ -61,7 +59,7 @@ public class DBSRateProviderImpl implements IRateProvider {
 				System.out.println("For " + targetCurr + " rupees you get " + equivalentsgd + " S$.");
 				toSGD = equivalentsgd/targetCurr;
 				toINR = (1.0)/toSGD;
-				return ;
+				return;
 			}
 		}
 		
@@ -69,7 +67,17 @@ public class DBSRateProviderImpl implements IRateProvider {
 		
 		
 	}
-	
-	
+
+	@Override
+	public double convert(Currency baseCurrency, Currency targetCurrency) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected void updateRates() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

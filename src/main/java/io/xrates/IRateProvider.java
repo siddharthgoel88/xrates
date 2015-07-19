@@ -7,8 +7,5 @@ package io.xrates;
  *  
  * */
 public interface IRateProvider {
-	
-	public double sgd2inr();
-	public double inr2sgd();
-	
+	public double convert(Currency baseCurrency, Currency targetCurrency);
 }
