@@ -1,4 +1,6 @@
-package io.xrates;
+package rateprovider;
+
+import io.xrates.Currency;
 
 /*
  * This interface provides skeleton for rate

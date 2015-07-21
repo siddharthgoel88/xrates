@@ -1,4 +1,7 @@
-package io.xrates;
+package rateprovider;
+
+import io.xrates.Currency;
+import io.xrates.Rates;
 
 public abstract class AbstractRateProvider implements IRateProvider {
 	private Rates allRates = new Rates(); 

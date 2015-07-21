@@ -1,4 +1,4 @@
-package io.xrates;
+package rateprovider;
 import java.io.IOException;
 
 import org.jsoup.Jsoup;
@@ -6,6 +6,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import io.xrates.Currency;
+import io.xrates.Rates;
 /*
  * This is an implementation of RateProvider interface
  * implementing the currency conversion method for bank
