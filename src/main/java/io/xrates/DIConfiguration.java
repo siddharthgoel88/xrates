@@ -4,7 +4,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import io.xrates.MainScheduler;
-import rateprovider.DBSRateProviderImpl;
+import io.xrates.rateprovider.DBSRateProviderImpl;
 
 @Configuration
 @ComponentScan(value={"io.xrates"})

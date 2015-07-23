@@ -1,4 +1,4 @@
-package rateprovider;
+package io.xrates.rateprovider;
 import java.io.IOException;
 
 import org.jsoup.Jsoup;
@@ -7,13 +7,14 @@ import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.xrates.Currency;
 import io.xrates.Rates;
 /*
  * This is an implementation of RateProvider interface
  * implementing the currency conversion method for bank
  * DBS
  * */
+import io.xrates.constants.Currency;
+
 public class DBSRateProviderImpl extends AbstractRateProvider {
 	private double toINR=0.0;
 	private double toSGD=0.0;
@@ -73,10 +74,6 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 				return;
 			}
 		}
-		
-//		double inr = Double.parseDouble(indianTableRow.select("td").get(1).text());
-		
-		
 	}
 
 	@Override

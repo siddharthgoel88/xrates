@@ -9,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import rateprovider.DBSRateProviderImpl;
-import rateprovider.IRateProvider;
+import io.xrates.constants.Currency;
+import io.xrates.rateprovider.DBSRateProviderImpl;
+import io.xrates.rateprovider.IRateProvider;
 
 @Component
 public class MainScheduler {
@@ -29,6 +30,5 @@ public class MainScheduler {
 		log.debug("Running scheduler");
 		log.info("For 1 "+Currency.SGD+" you get "+String.valueOf(this.dbsrpObj.convert(Currency.SGD, Currency.INR))+" "+Currency.INR);
 	}
-	
 	
 }

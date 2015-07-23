@@ -1,4 +1,4 @@
-package io.xrates;
+package io.xrates.constants;
 
 public enum Currency {
 	SGD,
