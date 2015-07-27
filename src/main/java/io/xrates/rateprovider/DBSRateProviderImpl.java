@@ -69,8 +69,14 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 				//System.out.println("For " + targetCurr + " rupees you get " + equivalentsgd + " S$.");
 				toSGD = equivalentsgd/targetCurr;
 				toINR = (1.0)/toSGD;
-				rates.setRate(Currency.INR, toINR);
-				rates.setRate(Currency.SGD, 1.0);
+//				rates.setRate(Currency.INR, toINR);
+//				rates.setRate(Currency.SGD, 1.0);
+				
+				rates.setConversion(Currency.SGD, Currency.INR, toINR);
+				rates.setConversion(Currency.INR, Currency.SGD, 1/toINR);
+				rates.setConversion(Currency.INR, Currency.INR, 1.0);
+				rates.setConversion(Currency.SGD, Currency.SGD, 1.0);
+				
 				return;
 			}
 		}
@@ -79,7 +85,7 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 	@Override
 	protected void updateRates() {
 		log.debug("Inside updateRates of DBSRateProviderImpl");
-		rates.setBaseCurrency(Currency.SGD);
+//		rates.setBaseCurrency(Currency.SGD);
 		updateListOfCurrencies();
 		try {
 			fetchRates();
@@ -91,7 +97,7 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 
 	/*
 	 * TODO: Need to crawl page and add all currencies.
-	 * Currently hardcoded it.
+	 * Currently hard-coded it.
 	 */
 	private void updateListOfCurrencies() {
 		rates.addAvailableCurrency(Currency.INR);

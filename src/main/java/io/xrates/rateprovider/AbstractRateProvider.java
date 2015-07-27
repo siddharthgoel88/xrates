@@ -9,7 +9,7 @@ public abstract class AbstractRateProvider implements IRateProvider {
 	public double convert(Currency from, Currency to) {
 		updateRates();
 		if (allRates.isCurrencySupported(from) && allRates.isCurrencySupported(to)) {
-			return allRates.getRate(to)/allRates.getRate(from);
+			return allRates.getConversion(from, to);
 		}
 		return -1;
 	}

@@ -8,17 +8,16 @@ import java.util.Map;
 import io.xrates.constants.Currency;
 
 public class Rates {
-	private Currency baseCurrency = null;
 	private List<Currency> availableCurrencies = new ArrayList<Currency>();
-	private Map<Currency, Double> rate = new HashMap<Currency, Double>();
-
-	public Currency getBaseCurrency() {
-		return baseCurrency;
-	}
-
-	public void setBaseCurrency(Currency baseCurrency) {
-		this.baseCurrency = baseCurrency;
-	}
+	private double[][] currencyMatrix = new double[Currency.values().length][Currency.values().length];
+	
+//	public Currency getBaseCurrency() {
+//		return baseCurrency;
+//	}
+//
+//	public void setBaseCurrency(Currency baseCurrency) {
+//		this.baseCurrency = baseCurrency;
+//	}
 	
 	public void addAvailableCurrency(Currency cur) {
 		availableCurrencies.add(cur);
@@ -36,11 +35,21 @@ public class Rates {
 		return availableCurrencies.contains(cur);
 	}
 
-	public Double getRate(Currency cur) {
-		return rate.get(cur);
+//	public Double getRate(Currency cur) {
+//		return rate.get(cur);
+//	}
+//
+//	public void setRate(Currency cur, Double currentRate) {
+//		rate.put(cur, currentRate);
+//	}
+	
+	public void setConversion(Currency from, Currency to, double value){
+		currencyMatrix[from.ordinal()][to.ordinal()] = value;
+		currencyMatrix[to.ordinal()][from.ordinal()] = 1/value;
 	}
-
-	public void setRate(Currency cur, Double currentRate) {
-		rate.put(cur, currentRate);
+	
+	public double getConversion(Currency from, Currency to){
+		return currencyMatrix[from.ordinal()][to.ordinal()];
 	}
+	
 }
