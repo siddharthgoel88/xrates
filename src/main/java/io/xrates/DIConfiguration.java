@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import io.xrates.MainScheduler;
 import io.xrates.rateprovider.DBSRateProviderImpl;
 import io.xrates.rateprovider.IRateProvider;
+import io.xrates.rateprovider.OCBCRateProviderImpl;
 
 @Configuration
 @ComponentScan(value={"io.xrates"})
@@ -18,11 +19,17 @@ public class DIConfiguration {
 	public List<IRateProvider> getRateProviderType(){
 		List<IRateProvider> objList = new ArrayList<>();
 		objList.add(dbsRateProvider());
+		objList.add(ocbcRateProvider());
 		return objList;
 	}
 	
 	@Bean
 	public DBSRateProviderImpl dbsRateProvider(){
 		return new DBSRateProviderImpl();
+	}
+	
+	@Bean
+	public OCBCRateProviderImpl ocbcRateProvider(){
+		return new OCBCRateProviderImpl();
 	}
 }
