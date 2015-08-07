@@ -25,7 +25,7 @@ public class MainScheduler {
 		this.dbsrpObjL = rateProviderList;
 	}
 	
-	@Scheduled(fixedRate = 4000)
+	@Scheduled(fixedRate = 10000)
 	public void getRate() throws IOException {
 		log.debug("Running scheduler");
 		for (int i = 0;i<this.dbsrpObjL.size();i++){

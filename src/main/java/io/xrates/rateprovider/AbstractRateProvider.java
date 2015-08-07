@@ -4,18 +4,15 @@ import io.xrates.Rates;
 import io.xrates.constants.Currency;
 
 public abstract class AbstractRateProvider implements IRateProvider {
-	private Rates allRates = new Rates(); 
+	private Rates rates = new Rates(); 
 		
 	public double convert(Currency from, Currency to) {
 		updateRates();
-		if (allRates.isCurrencySupported(from) && allRates.isCurrencySupported(to)) {
-			return allRates.getConversion(from, to);
-		}
-		return -1;
+		return rates.getConversion(from, to);
 	}
 	
-	public Rates getAllRates() {
-		return allRates;
+	public Rates getRates() {
+		return rates;
 	}
 	
 	protected abstract void updateRates();

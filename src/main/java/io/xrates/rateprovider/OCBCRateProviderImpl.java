@@ -9,16 +9,15 @@ import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
 import io.xrates.Rates;
 import io.xrates.constants.Currency;
+import io.xrates.constants.RateProvider;
 
 public class OCBCRateProviderImpl extends AbstractRateProvider{
 	private String resourceUrl = "https://www.ocbc.com/rates/daily_price_fx.html";
-	private Double toSGD = 0.0;
+//	private Double toSGD = 0.0;
 	private Logger log = LoggerFactory.getLogger(OCBCRateProviderImpl.class.getName());
-	private Rates rates = getAllRates();
+	private Rates rates = getRates();
 	
 	private String fromCurrency = "INR";
 	
@@ -39,15 +38,15 @@ public class OCBCRateProviderImpl extends AbstractRateProvider{
 				Element tableRow = ratesTable.select("tr").get(i);
 				Elements tableData = tableRow.select("td");
 				String unit = tableData.get(1).text();
-				int unitValue = Integer.parseInt(unit.split(" ")[0]);
+//				int unitValue = Integer.parseInt(unit.split(" ")[0]);
 				String unitCurrency = unit.split(" ")[1];
-				float sellingRate = Float.parseFloat(tableData.get(3).text());
+//				float sellingRate = Float.parseFloat(tableData.get(3).text());
 				if(unitCurrency.equals(fromCurrency)){
-					float toSgd = sellingRate/unitValue;
-					float toInr = unitValue/sellingRate;				
+//					float toSgd = sellingRate/unitValue;
+//					float toInr = unitValue/sellingRate;				
 					
-					rates.setConversion(Currency.SGD, Currency.INR, toInr);
-					rates.setConversion(Currency.INR, Currency.SGD, toSgd);
+					//rates.setConversion(Currency.SGD, Currency.INR, toInr);
+					//rates.setConversion(Currency.INR, Currency.SGD, toSgd);
 					rates.setConversion(Currency.INR, Currency.INR, 1.0);
 					rates.setConversion(Currency.SGD, Currency.SGD, 1.0);
 					
@@ -76,6 +75,13 @@ public class OCBCRateProviderImpl extends AbstractRateProvider{
 	private void updateCurrencyList() {
 		rates.addAvailableCurrency(Currency.INR);
 		rates.addAvailableCurrency(Currency.SGD);
+	}
+
+
+	@Override
+	public RateProvider getRateProvider() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

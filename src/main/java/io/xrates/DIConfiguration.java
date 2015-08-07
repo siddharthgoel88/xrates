@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import io.xrates.MainScheduler;
 import io.xrates.rateprovider.DBSRateProviderImpl;
 import io.xrates.rateprovider.IRateProvider;
 import io.xrates.rateprovider.OCBCRateProviderImpl;

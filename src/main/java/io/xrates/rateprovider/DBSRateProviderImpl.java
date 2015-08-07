@@ -1,3 +1,9 @@
+/*
+ * This is an implementation of RateProvider interface
+ * implementing the currency conversion method for bank
+ * DBS
+ * */
+
 package io.xrates.rateprovider;
 import java.io.IOException;
 
@@ -8,43 +14,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.xrates.Rates;
-/*
- * This is an implementation of RateProvider interface
- * implementing the currency conversion method for bank
- * DBS
- * */
 import io.xrates.constants.Currency;
+import io.xrates.constants.RateProvider;
 
 public class DBSRateProviderImpl extends AbstractRateProvider {
+	private RateProvider rateProvider;
 	private double toINR=0.0;
 	private double toSGD=0.0;
 	private String resourceURL = "http://www.dbs.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page";
 	private Logger log = LoggerFactory.getLogger(DBSRateProviderImpl.class.getName());
-	private Rates rates = getAllRates();
+	private Rates rates = getRates();
 	private String from_curr = "Indian Rupee";
 	
-	
-	/*
-	public double sgd2inr() {
-		try {
-			fetchRates();
-		} catch(IOException io) {
-			System.err.println("Some io error:" + io);
-		}
-		return toINR;
-		
+	public DBSRateProviderImpl() {
+		setRateProvider(RateProvider.DBS);
 	}
-
-	public double inr2sgd() {
-		try {
-			fetchRates();
-		} catch(IOException io) {
-			System.err.println("Some io error:" + io);
-		}
-		return toSGD;
-
-	}
-	*/
 
 	private void fetchRates() throws IOException {
 			System.out.println("Starting to fetch url");
@@ -85,7 +69,6 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 	@Override
 	protected void updateRates() {
 		log.debug("Inside updateRates of DBSRateProviderImpl");
-//		rates.setBaseCurrency(Currency.SGD);
 		updateListOfCurrencies();
 		try {
 			fetchRates();
@@ -102,6 +85,15 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 	private void updateListOfCurrencies() {
 		rates.addAvailableCurrency(Currency.INR);
 		rates.addAvailableCurrency(Currency.SGD);
+	}
+
+	@Override
+	public RateProvider getRateProvider() {
+		return rateProvider;
+	}
+
+	private void setRateProvider(RateProvider rateProvider) {
+		this.rateProvider = rateProvider;
 	}
 
 }
