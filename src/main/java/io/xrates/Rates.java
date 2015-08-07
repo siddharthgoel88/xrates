@@ -1,17 +1,17 @@
 package io.xrates;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.xrates.constants.Currency;
 import io.xrates.constants.RateProvider;
 
 public class Rates {
 	private RateProvider rateProvider;
 	private List<Currency> availableCurrencies = new ArrayList<Currency>();
-	private Map<Currency, Map<Currency, Double>> rates = new HashMap<Currency, Map<Currency,Double>>();
+	private Map<String, Map<String, Double>> rates = new HashMap<String, Map<String,Double>>();
 	
 	public void addAvailableCurrency(Currency cur) {
 		availableCurrencies.add(cur);
@@ -29,26 +29,26 @@ public class Rates {
 		return availableCurrencies.contains(cur);
 	}
 
-	public Map<Currency, Map<Currency, Double>> getRates() {
+	public Map<String, Map<String, Double>> getRates() {
 		return rates;
 	}
 	
 	public void setConversion(Currency from, Currency to, Double rate) {
-		if (rates.containsKey(from)) {
-			Map<Currency, Double> map = rates.get(from);
-			map.put(to, rate);
+		if (rates.containsKey(from.getCurrencyCode())) {
+			Map<String, Double> map = rates.get(from.getCurrencyCode());
+			map.put(to.getCurrencyCode(), rate);
 		} else {
-			Map<Currency, Double> map = new HashMap<Currency, Double>();
-			map.put(to, rate);
-			rates.put(from, map);
+			Map<String, Double> map = new HashMap<String, Double>();
+			map.put(to.getCurrencyCode(), rate);
+			rates.put(from.getCurrencyCode(), map);
 		}
 	}
 	
 	public double getConversion(Currency from, Currency to) {
-		if (rates.containsKey(from)) {
-			Map<Currency, Double> map = rates.get(from);
-			if (map.containsKey(to)) {
-				return map.get(to);
+		if (rates.containsKey(from.getCurrencyCode())) {
+			Map<String, Double> map = rates.get(from.getCurrencyCode());
+			if (map.containsKey(to.getCurrencyCode())) {
+				return map.get(to.getCurrencyCode());
 			}
 		}
 		return -1;

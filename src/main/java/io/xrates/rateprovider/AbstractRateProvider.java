@@ -1,12 +1,13 @@
 package io.xrates.rateprovider;
 
+import java.util.Currency;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.lalyos.jfiglet.FigletFont;
 
 import io.xrates.Rates;
-import io.xrates.constants.Currency;
 import io.xrates.constants.RateProvider;
 
 public abstract class AbstractRateProvider implements IRateProvider {

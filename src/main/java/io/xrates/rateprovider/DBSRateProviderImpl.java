@@ -6,6 +6,7 @@
 
 package io.xrates.rateprovider;
 import java.io.IOException;
+import java.util.Currency;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.xrates.Rates;
-import io.xrates.constants.Currency;
 import io.xrates.constants.RateProvider;
 
 public class DBSRateProviderImpl extends AbstractRateProvider {
@@ -41,7 +41,7 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 	}
 
 	private void fetchRates() throws IOException {
-			log.debug("DBS: Fetching page @ " + resourceURL);
+			log.info("DBS: Fetching page @ " + resourceURL);
 			Document doc = Jsoup.connect(resourceURL).get();
 			Element rateTableDiv = doc.select("div.rates-table").get(1);
 			Element rateTable = rateTableDiv.select("table tbody").get(1);
@@ -63,14 +63,9 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 				//System.out.println("For " + targetCurr + " rupees you get " + equivalentsgd + " S$.");
 				toSGD = equivalentsgd/targetCurr;
 				toINR = (1.0)/toSGD;
-//				rates.setRate(Currency.INR, toINR);
-//				rates.setRate(Currency.SGD, 1.0);
 				
-				rates.setConversion(Currency.SGD, Currency.INR, toINR);
-				rates.setConversion(Currency.INR, Currency.SGD, 1/toINR);
-				rates.setConversion(Currency.INR, Currency.INR, 1.0);
-				rates.setConversion(Currency.SGD, Currency.SGD, 1.0);
-				
+				rates.setConversion(Currency.getInstance("SGD"), Currency.getInstance("INR"), toINR);
+				rates.setConversion(Currency.getInstance("INR"), Currency.getInstance("SGD"), 1/toINR);
 				return;
 			}
 		}
@@ -81,8 +76,8 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 	 * Currently hard-coded it.
 	 */
 	private void updateListOfCurrencies() {
-		rates.addAvailableCurrency(Currency.INR);
-		rates.addAvailableCurrency(Currency.SGD);
+		rates.addAvailableCurrency(Currency.getInstance("INR"));
+		rates.addAvailableCurrency(Currency.getInstance("SGD"));
 	}
 
 }

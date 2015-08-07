@@ -1,6 +1,7 @@
 package io.xrates.rateprovider;
 
-import io.xrates.constants.Currency;
+import java.util.Currency;
+
 import io.xrates.constants.RateProvider;
 
 /*

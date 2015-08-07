@@ -1,6 +1,7 @@
 package io.xrates.rateprovider;
 
 import java.io.IOException;
+import java.util.Currency;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -10,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.xrates.Rates;
-import io.xrates.constants.Currency;
 import io.xrates.constants.RateProvider;
 
 public class OCBCRateProviderImpl extends AbstractRateProvider{
@@ -37,7 +37,7 @@ public class OCBCRateProviderImpl extends AbstractRateProvider{
 	}
 	
 	private void fetchRates() throws IOException{
-		log.debug("OCBS: Fetching page @ " + resourceUrl);
+		log.info("OCBS: Fetching page @ " + resourceUrl);
 		Document doc = Jsoup.connect(resourceUrl).get();
 		Element ratesTable = doc.select(".MsoNormalTable").get(0);
 		getRateForInputCurrency(fromCurrency, ratesTable);
@@ -59,10 +59,8 @@ public class OCBCRateProviderImpl extends AbstractRateProvider{
 					double toSgd = sellingRate/unitValue;
 					double toInr = unitValue/sellingRate;				
 					
-					rates.setConversion(Currency.SGD, Currency.INR, toInr);
-					rates.setConversion(Currency.INR, Currency.SGD, toSgd);
-					rates.setConversion(Currency.INR, Currency.INR, 1.0);
-					rates.setConversion(Currency.SGD, Currency.SGD, 1.0);
+					rates.setConversion(Currency.getInstance("SGD"), Currency.getInstance("INR"), toInr);
+					rates.setConversion(Currency.getInstance("INR"), Currency.getInstance("SGD"), toSgd);
 					
 				}
 			}catch(IndexOutOfBoundsException e){
@@ -75,8 +73,8 @@ public class OCBCRateProviderImpl extends AbstractRateProvider{
 	}
 	
 	private void updateCurrencyList() {
-		rates.addAvailableCurrency(Currency.INR);
-		rates.addAvailableCurrency(Currency.SGD);
+		rates.addAvailableCurrency(Currency.getInstance("INR"));
+		rates.addAvailableCurrency(Currency.getInstance("SGD"));
 	}
 	
 }
