@@ -18,7 +18,6 @@ import io.xrates.constants.Currency;
 import io.xrates.constants.RateProvider;
 
 public class DBSRateProviderImpl extends AbstractRateProvider {
-	private RateProvider rateProvider;
 	private double toINR=0.0;
 	private double toSGD=0.0;
 	private String resourceURL = "http://www.dbs.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page";
@@ -29,9 +28,20 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 	public DBSRateProviderImpl() {
 		setRateProvider(RateProvider.DBS);
 	}
+	
+	@Override
+	protected void updateRates() {
+		log.debug("Inside updateRates of DBSRateProviderImpl");
+		updateListOfCurrencies();
+		try {
+			fetchRates();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private void fetchRates() throws IOException {
-			System.out.println("Starting to fetch url");
+			log.debug("DBS: Fetching page @ " + resourceURL);
 			Document doc = Jsoup.connect(resourceURL).get();
 			Element rateTableDiv = doc.select("div.rates-table").get(1);
 			Element rateTable = rateTableDiv.select("table tbody").get(1);
@@ -66,18 +76,6 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 		}
 	}
 
-	@Override
-	protected void updateRates() {
-		log.debug("Inside updateRates of DBSRateProviderImpl");
-		updateListOfCurrencies();
-		try {
-			fetchRates();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-
 	/*
 	 * TODO: Need to crawl page and add all currencies.
 	 * Currently hard-coded it.
@@ -85,15 +83,6 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 	private void updateListOfCurrencies() {
 		rates.addAvailableCurrency(Currency.INR);
 		rates.addAvailableCurrency(Currency.SGD);
-	}
-
-	@Override
-	public RateProvider getRateProvider() {
-		return rateProvider;
-	}
-
-	private void setRateProvider(RateProvider rateProvider) {
-		this.rateProvider = rateProvider;
 	}
 
 }

@@ -21,9 +21,23 @@ public class OCBCRateProviderImpl extends AbstractRateProvider{
 	
 	private String fromCurrency = "INR";
 	
+	public OCBCRateProviderImpl() {
+		setRateProvider(RateProvider.OCBC);
+	}
+	
+	@Override
+	protected void updateRates() {
+		updateCurrencyList();
+		try {
+			fetchRates();
+		} catch (IOException e) {
+//			TODO: Implement for specific Exceptions
+			System.err.println("There was an error fetching the currency rates");
+		}
+	}
 	
 	private void fetchRates() throws IOException{
-		log.debug("Fetching URL ... ");
+		log.debug("OCBS: Fetching page @ " + resourceUrl);
 		Document doc = Jsoup.connect(resourceUrl).get();
 		Element ratesTable = doc.select(".MsoNormalTable").get(0);
 		getRateForInputCurrency(fromCurrency, ratesTable);
@@ -38,15 +52,15 @@ public class OCBCRateProviderImpl extends AbstractRateProvider{
 				Element tableRow = ratesTable.select("tr").get(i);
 				Elements tableData = tableRow.select("td");
 				String unit = tableData.get(1).text();
-//				int unitValue = Integer.parseInt(unit.split(" ")[0]);
+				int unitValue = Integer.parseInt(unit.split(" ")[0]);
 				String unitCurrency = unit.split(" ")[1];
-//				float sellingRate = Float.parseFloat(tableData.get(3).text());
+				float sellingRate = Float.parseFloat(tableData.get(3).text());
 				if(unitCurrency.equals(fromCurrency)){
-//					float toSgd = sellingRate/unitValue;
-//					float toInr = unitValue/sellingRate;				
+					double toSgd = sellingRate/unitValue;
+					double toInr = unitValue/sellingRate;				
 					
-					//rates.setConversion(Currency.SGD, Currency.INR, toInr);
-					//rates.setConversion(Currency.INR, Currency.SGD, toSgd);
+					rates.setConversion(Currency.SGD, Currency.INR, toInr);
+					rates.setConversion(Currency.INR, Currency.SGD, toSgd);
 					rates.setConversion(Currency.INR, Currency.INR, 1.0);
 					rates.setConversion(Currency.SGD, Currency.SGD, 1.0);
 					
@@ -60,32 +74,9 @@ public class OCBCRateProviderImpl extends AbstractRateProvider{
 		}
 	}
 	
-	
-	@Override
-	protected void updateRates() {
-		updateCurrencyList();
-		try {
-			fetchRates();
-		} catch (IOException e) {
-//			TODO: Implement for specific Exceptions
-			System.err.println("There was an error fetching the currency rates");
-		}
-	}
-	
 	private void updateCurrencyList() {
 		rates.addAvailableCurrency(Currency.INR);
 		rates.addAvailableCurrency(Currency.SGD);
 	}
-
-
-	@Override
-	public RateProvider getRateProvider() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	
-	
 	
 }
