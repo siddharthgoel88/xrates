@@ -2,6 +2,7 @@ package io.xrates;
 
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,16 @@ public class Rates {
 	private RateProvider rateProvider;
 	private List<Currency> availableCurrencies = new ArrayList<Currency>();
 	private Map<String, Map<String, Double>> rates = new HashMap<String, Map<String,Double>>();
+	private Date updateTime;
 	
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
 	public void addAvailableCurrency(Currency cur) {
 		availableCurrencies.add(cur);
 	}
