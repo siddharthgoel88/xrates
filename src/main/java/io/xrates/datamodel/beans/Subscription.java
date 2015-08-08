@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,13 +17,19 @@ public class Subscription {
 	@Column(name="id")
 	private long subscriptionId;
 
-	//	TODO: Add foreign key constraint  - Refers : user.id
-	@Column(name = "user_id")
-	private long userId;
+	/* 
+	 * A user can have many subscriptions. 
+	 */
+	@OneToMany
+	@JoinColumn(name = "user_id")
+	private Users user;
 	
-	//	TODO: Add foreign key constraint  - Refers : service.id	
-	@Column(name = "service_id")
-	private long serviceId;
+	/*
+	 * Many subscriptions can be made on a single service
+	 */
+	@OneToMany
+	@JoinColumn(name = "service_id")
+	private Service service;
 	
 	@Column(name = "active")
 	private boolean isActive;
@@ -42,21 +50,21 @@ public class Subscription {
 		this.subscriptionId = subscriptionId;
 	}
 
-	public long getUserId() {
-		return userId;
+	public Users getUser() {
+		return user;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setUser(Users user) {
+		this.user = user;
 	}
 
-	public long getServiceId() {
-		return serviceId;
+	public Service getService() {
+		return service;
 	}
 
-	public void setServiceId(long serviceId) {
-		this.serviceId = serviceId;
+	public void setService(Service service) {
+		this.service = service;
 	}
-	
+
 	
 }
