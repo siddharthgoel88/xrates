@@ -1,12 +1,14 @@
 package io.xrates.datamodel.beans;
 
 import java.util.Currency;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -16,7 +18,7 @@ public class Service {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id")
+	@Column(name="service_id")
 	private long serviceId;
 	
 	@Column(name = "to_currency")
@@ -25,6 +27,9 @@ public class Service {
 	@Column(name = "from_currency")
 	private Currency fromCurrency;
 
+	@OneToMany
+	private List<Subscription> subscriptions;
+	
 	public long getServiceId() {
 		return serviceId;
 	}
@@ -48,6 +53,15 @@ public class Service {
 	public void setFromCurrency(Currency fromCurrency) {
 		this.fromCurrency = fromCurrency;
 	}
+
+	public List<Subscription> getSubscriptions() {
+		return subscriptions;
+	}
+
+	public void setSubscriptions(List<Subscription> subscriptions) {
+		this.subscriptions = subscriptions;
+	}
 	
 	
 }
+ 

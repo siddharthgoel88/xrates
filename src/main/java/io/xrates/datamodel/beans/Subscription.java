@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,14 +20,14 @@ public class Subscription {
 	/* 
 	 * A user can have many subscriptions. 
 	 */
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private Users user;
 	
 	/*
 	 * Many subscriptions can be made on a single service
 	 */
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "service_id")
 	private Service service;
 	
@@ -48,22 +48,6 @@ public class Subscription {
 
 	public void setSubscriptionId(long subscriptionId) {
 		this.subscriptionId = subscriptionId;
-	}
-
-	public Users getUser() {
-		return user;
-	}
-
-	public void setUser(Users user) {
-		this.user = user;
-	}
-
-	public Service getService() {
-		return service;
-	}
-
-	public void setService(Service service) {
-		this.service = service;
 	}
 
 	

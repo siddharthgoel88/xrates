@@ -1,10 +1,13 @@
 package io.xrates.datamodel.beans;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,7 +15,7 @@ import javax.persistence.Table;
 public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
+	@Column(name = "user_id")
 	private long user_id;
 	
 	@Column(name = "name", nullable=false)
@@ -27,6 +30,9 @@ public class Users {
 	@Column(name = "isd_code", length = 3)
 	private int isd_code;
 
+	@OneToMany
+	private List<Subscription> subscriptions;
+	
 	public long getUser_id() {
 		return user_id;
 	}
@@ -66,7 +72,13 @@ public class Users {
 	public void setIsd_code(int isd_code) {
 		this.isd_code = isd_code;
 	}
-	
-	
+
+	public List<Subscription> getSubscriptions() {
+		return subscriptions;
+	}
+
+	public void setSubscriptions(List<Subscription> subscriptions) {
+		this.subscriptions = subscriptions;
+	}
 	
 }
