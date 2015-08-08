@@ -1,4 +1,4 @@
-package io.xrates.rateprovider;
+package io.xrates.rateprovider.impl;
 
 import java.io.IOException;
 import java.util.Currency;
@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import io.xrates.Rates;
 import io.xrates.constants.RateProvider;
+import io.xrates.rateprovider.AbstractRateProvider;
 
 public class OCBCRateProviderImpl extends AbstractRateProvider{
 	private String resourceUrl = "https://www.ocbc.com/rates/daily_price_fx.html";

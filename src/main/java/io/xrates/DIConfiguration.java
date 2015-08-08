@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import io.xrates.rateprovider.DBSRateProviderImpl;
 import io.xrates.rateprovider.IRateProvider;
-import io.xrates.rateprovider.OCBCRateProviderImpl;
+import io.xrates.rateprovider.impl.DBSRateProviderImpl;
+import io.xrates.rateprovider.impl.OCBCRateProviderImpl;
 
 @Configuration
 @ComponentScan(value={"io.xrates"})

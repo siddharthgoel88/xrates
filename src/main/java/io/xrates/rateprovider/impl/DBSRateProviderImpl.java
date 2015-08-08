@@ -4,7 +4,7 @@
  * DBS
  * */
 
-package io.xrates.rateprovider;
+package io.xrates.rateprovider.impl;
 import java.io.IOException;
 import java.util.Currency;
 
@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import io.xrates.Rates;
 import io.xrates.constants.RateProvider;
+import io.xrates.rateprovider.AbstractRateProvider;
 import io.xrates.rateprovider.util.CurrencyAdapter;
 
 public class DBSRateProviderImpl extends AbstractRateProvider {
