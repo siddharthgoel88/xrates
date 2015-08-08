@@ -1,7 +1,6 @@
 package io.xrates.rateprovider;
 
 import java.util.Currency;
-import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,6 @@ public abstract class AbstractRateProvider implements IRateProvider {
 		
 	public double convert(Currency from, Currency to) {
 		updateRates();
-		rates.setUpdateTime(new Date());
 		return rates.getConversion(from, to);
 	}
 	
