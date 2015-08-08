@@ -1,13 +1,16 @@
 package io.xrates.datamodel.beans;
 
-import java.util.Currency;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,14 +24,21 @@ public class Service {
 	@Column(name="service_id")
 	private long serviceId;
 	
-	@Column(name = "to_currency")
-	private Currency toCurrency;
+	@Column(name = "to_currency", length = 3)
+	private String toCurrency;
 	
-	@Column(name = "from_currency")
-	private Currency fromCurrency;
+	@Column(name = "from_currency", length = 3)
+	private String fromCurrency;
+	
+	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "provider_id"))
+	private Provider provider;
 
 	@OneToMany
 	private List<Subscription> subscriptions;
+	
+	@OneToMany
+	private List<Conversion> conversions;
 	
 	public long getServiceId() {
 		return serviceId;
@@ -38,19 +48,19 @@ public class Service {
 		this.serviceId = serviceId;
 	}
 
-	public Currency getToCurrency() {
+	public String getToCurrency() {
 		return toCurrency;
 	}
 
-	public void setToCurrency(Currency toCurrency) {
+	public void setToCurrency(String toCurrency) {
 		this.toCurrency = toCurrency;
 	}
 
-	public Currency getFromCurrency() {
+	public String getFromCurrency() {
 		return fromCurrency;
 	}
 
-	public void setFromCurrency(Currency fromCurrency) {
+	public void setFromCurrency(String fromCurrency) {
 		this.fromCurrency = fromCurrency;
 	}
 
