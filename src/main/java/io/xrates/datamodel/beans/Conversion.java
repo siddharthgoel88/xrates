@@ -64,6 +64,4 @@ public class Conversion {
 		this.conversionRate = conversionRate;
 	}
 	
-	
-	
 }
