@@ -35,12 +35,18 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 		log.debug("Inside updateRates of DBSRateProviderImpl");
 		try {
 			log.info("DBS: Fetching page @ " + resourceURL);
-			Document doc = Jsoup.connect(resourceURL).get();
+			Document doc = getDocument();
 			extractRates(doc.select("div.rates-table").get(0).select("table tbody").get(0));
 			extractRates(doc.select("div.rates-table").get(1).select("table tbody").get(1));
 		} catch (IOException e) {
+			log.error("DBS: fetching page caused some error !");
 			e.printStackTrace();
 		}	
+	}
+	
+	private Document getDocument() throws IOException {
+		Document doc = Jsoup.connect(resourceURL).get();
+		return doc;
 	}
 	
 	private void extractRates(Element table) {
