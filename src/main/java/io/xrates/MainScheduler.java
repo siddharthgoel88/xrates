@@ -16,20 +16,15 @@ import io.xrates.rateprovider.IRateProvider;
 public class MainScheduler {
 	
 	Logger log = LoggerFactory.getLogger(MainScheduler.class.getName());
-	IRateProvider dbsrpObj;
-	List<IRateProvider> dbsrpObjL = null;
 	
-	//Method based dependency injection
 	@Autowired
-	public void setRateProvider(List<IRateProvider> rateProviderList){
-		this.dbsrpObjL = rateProviderList;
-	}
+	private List<IRateProvider> rateProviders;
 	
 	@Scheduled(fixedRate = 10000)
 	public void getRate() throws IOException {
 		log.debug("Running scheduler");
-		for (int i = 0;i<this.dbsrpObjL.size();i++){
-			log.info("For 1 "+Currency.getInstance("INR").getDisplayName() +" you get "+String.valueOf(this.dbsrpObjL.get(i).convert(Currency.getInstance("INR"), Currency.getInstance("SGD")))+" "+ Currency.getInstance("SGD").getDisplayName());
+		for (int i = 0;i<this.rateProviders.size();i++){
+			log.info("For 1 "+Currency.getInstance("INR").getDisplayName() +" you get "+String.valueOf(this.rateProviders.get(i).convert(Currency.getInstance("INR"), Currency.getInstance("SGD")))+" "+ Currency.getInstance("SGD").getDisplayName());
 		}
 	}
 }

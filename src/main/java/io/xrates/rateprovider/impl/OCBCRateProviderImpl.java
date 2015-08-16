@@ -9,11 +9,13 @@ import org.jsoup.select.Elements;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import io.xrates.Rates;
 import io.xrates.constants.RateProvider;
 import io.xrates.rateprovider.AbstractRateProvider;
 
+@Component
 public class OCBCRateProviderImpl extends AbstractRateProvider{
 	private String resourceUrl = "https://www.ocbc.com/rates/daily_price_fx.html";
 //	private Double toSGD = 0.0;

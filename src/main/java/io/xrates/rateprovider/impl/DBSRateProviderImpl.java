@@ -13,12 +13,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import io.xrates.Rates;
 import io.xrates.constants.RateProvider;
 import io.xrates.rateprovider.AbstractRateProvider;
 import io.xrates.rateprovider.util.CurrencyAdapter;
 
+@Component
 public class DBSRateProviderImpl extends AbstractRateProvider {
 	private String resourceURL = "http://www.dbs.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page";
 	private Logger log = LoggerFactory.getLogger(DBSRateProviderImpl.class.getName());
