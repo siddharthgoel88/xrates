@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
 import io.xrates.rateprovider.IRateProvider;
 
 @Component
@@ -19,7 +18,7 @@ public class MainScheduler {
 	IRateProvider dbsrpObj;
 	List<IRateProvider> dbsrpObjL = null;
 	
-	//Method based dependency injection
+	//Method based dependencLogger log = LoggerFactory.getLogger(MainScheduler.class.getName());y injection
 	@Autowired
 	public void setRateProvider(List<IRateProvider> rateProviderList){
 		this.dbsrpObjL = rateProviderList;
