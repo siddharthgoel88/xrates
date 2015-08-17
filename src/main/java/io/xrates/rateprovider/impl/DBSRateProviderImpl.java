@@ -13,12 +13,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import io.xrates.Rates;
 import io.xrates.constants.RateProvider;
 import io.xrates.rateprovider.AbstractRateProvider;
 import io.xrates.rateprovider.util.CurrencyAdapter;
 
+@Component
 public class DBSRateProviderImpl extends AbstractRateProvider {
 	private String resourceURL = "http://www.dbs.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page";
 	private Logger log = LoggerFactory.getLogger(DBSRateProviderImpl.class.getName());
@@ -35,12 +37,18 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 		log.debug("Inside updateRates of DBSRateProviderImpl");
 		try {
 			log.info("DBS: Fetching page @ " + resourceURL);
-			Document doc = Jsoup.connect(resourceURL).get();
+			Document doc = getDocument();
 			extractRates(doc.select("div.rates-table").get(0).select("table tbody").get(0));
 			extractRates(doc.select("div.rates-table").get(1).select("table tbody").get(1));
 		} catch (IOException e) {
+			log.error("DBS: fetching page caused some error !");
 			e.printStackTrace();
 		}	
+	}
+	
+	private Document getDocument() throws IOException {
+		Document doc = Jsoup.connect(resourceURL).get();
+		return doc;
 	}
 	
 	private void extractRates(Element table) {

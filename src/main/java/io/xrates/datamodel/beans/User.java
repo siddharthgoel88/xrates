@@ -11,14 +11,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Users")
-public class Users {
+@Table(name = "User")
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
 	private long user_id;
 	
-	@Column(name = "name", nullable=false)
+	@Column(name = "user_name", nullable=false)
 	private String name;
 	
 	@Column(name = "email", nullable=false)
@@ -29,6 +29,9 @@ public class Users {
 	
 	@Column(name = "isd_code", length = 3)
 	private int isd_code;
+	
+	@Column(name = "email_verified")
+	private boolean emailVerified;
 
 	@OneToMany
 	private List<Subscription> subscriptions;
@@ -79,6 +82,14 @@ public class Users {
 
 	public void setSubscriptions(List<Subscription> subscriptions) {
 		this.subscriptions = subscriptions;
+	}
+
+	public boolean isEmailVerified() {
+		return emailVerified;
+	}
+
+	public void setEmailVerified(boolean emailVerified) {
+		this.emailVerified = emailVerified;
 	}
 	
 }

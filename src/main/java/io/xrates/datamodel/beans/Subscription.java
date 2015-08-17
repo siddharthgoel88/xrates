@@ -1,13 +1,18 @@
 package io.xrates.datamodel.beans;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="Subscription")
@@ -16,23 +21,21 @@ public class Subscription {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
 	private long subscriptionId;
-
-	/* 
-	 * A user can have many subscriptions. 
-	 */
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private Users user;
-	
-	/*
-	 * Many subscriptions can be made on a single service
-	 */
-	@ManyToOne
-	@JoinColumn(name = "service_id")
-	private Service service;
 	
 	@Column(name = "active")
 	private boolean isActive;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "start_date")
+	private Date startDate;
+
+	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "user"))
+	private User user;
+	
+	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "service_id"))
+	private Service service;
 
 	public boolean isActive() {
 		return isActive;
@@ -50,5 +53,28 @@ public class Subscription {
 		this.subscriptionId = subscriptionId;
 	}
 
-	
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Service getService() {
+		return service;
+	}
+
+	public void setService(Service service) {
+		this.service = service;
+	}
+
 }
