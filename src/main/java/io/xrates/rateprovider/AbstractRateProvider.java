@@ -13,10 +13,16 @@ import io.xrates.constants.RateProvider;
 public abstract class AbstractRateProvider implements IRateProvider {
 	private Rates rates = new Rates(); 
 	private RateProvider rateProvider;
+	private long lastUpdated = -1;
+	private long stalenessTime = 300000; //Data which is stale up to 5 minutes is fine
 	private Logger log = LoggerFactory.getLogger(AbstractRateProvider.class.getName());
 		
 	public double convert(Currency from, Currency to) {
-		updateRates();
+		long currentTime = System.currentTimeMillis();
+		if (currentTime - lastUpdated > stalenessTime) {
+			updateRates();
+			lastUpdated = currentTime;
+		}
 		return rates.getConversion(from, to);
 	}
 	
