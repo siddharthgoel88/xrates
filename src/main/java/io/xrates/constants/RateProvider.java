@@ -2,7 +2,8 @@ package io.xrates.constants;
 
 public enum RateProvider {
 	DBS(1, "DBS"),
-	OCBC(2, "OCBC");
+	OCBC(2, "OCBC"),
+	REMIT(3, "REMIT GURU");
 	
 	private final int value;
 	private final String providerName;
