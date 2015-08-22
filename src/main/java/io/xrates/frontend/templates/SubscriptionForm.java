@@ -1,4 +1,4 @@
-package io.xrates.ui;
+package io.xrates.frontend.templates;
 
 import java.util.List;
 

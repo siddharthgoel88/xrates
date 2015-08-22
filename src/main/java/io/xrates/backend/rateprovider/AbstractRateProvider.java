@@ -1,4 +1,4 @@
-package io.xrates.rateprovider;
+package io.xrates.backend.rateprovider;
 
 import java.util.Currency;
 
@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import com.github.lalyos.jfiglet.FigletFont;
 
-import io.xrates.Rates;
-import io.xrates.constants.RateProvider;
+import io.xrates.backend.Rates;
+import io.xrates.backend.constants.RateProvider;
 
 public abstract class AbstractRateProvider implements IRateProvider {
 	private Rates rates = new Rates(); 

@@ -1,4 +1,4 @@
-package io.xrates.rateprovider.util;
+package io.xrates.backend.rateprovider.util;
 
 import java.util.Currency;
 import java.util.HashMap;

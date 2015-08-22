@@ -1,4 +1,4 @@
-package io.xrates.datamodel;
+package io.xrates.backend.datamodel;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;

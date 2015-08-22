@@ -4,7 +4,7 @@
  * DBS
  * */
 
-package io.xrates.rateprovider.impl;
+package io.xrates.backend.rateprovider.impl;
 import java.io.IOException;
 import java.util.Currency;
 
@@ -15,10 +15,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import io.xrates.Rates;
-import io.xrates.constants.RateProvider;
-import io.xrates.rateprovider.AbstractRateProvider;
-import io.xrates.rateprovider.util.CurrencyAdapter;
+import io.xrates.backend.Rates;
+import io.xrates.backend.constants.RateProvider;
+import io.xrates.backend.rateprovider.AbstractRateProvider;
+import io.xrates.backend.rateprovider.util.CurrencyAdapter;
 
 @Component
 public class DBSRateProviderImpl extends AbstractRateProvider {

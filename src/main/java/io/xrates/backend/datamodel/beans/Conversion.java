@@ -1,4 +1,4 @@
-package io.xrates.datamodel.beans;
+package io.xrates.backend.datamodel.beans;
 
 import java.util.Date;
 

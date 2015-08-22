@@ -1,4 +1,4 @@
-package io.xrates.constants;
+package io.xrates.backend.constants;
 
 public enum RateProvider {
 	DBS(1, "DBS"),

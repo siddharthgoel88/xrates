@@ -1,4 +1,4 @@
-package io.xrates.controller;
+package io.xrates.frontend.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import io.xrates.Application;
-import io.xrates.ui.SubscriptionForm;
+import io.xrates.backend.Application;
+import io.xrates.frontend.templates.SubscriptionForm;
 
 
 @Controller

@@ -1,4 +1,4 @@
-package io.xrates;
+package io.xrates.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

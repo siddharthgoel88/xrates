@@ -1,8 +1,8 @@
-package io.xrates.rateprovider;
+package io.xrates.backend.rateprovider;
 
 import java.util.Currency;
 
-import io.xrates.constants.RateProvider;
+import io.xrates.backend.constants.RateProvider;
 
 /*
  * This interface provides skeleton for rate

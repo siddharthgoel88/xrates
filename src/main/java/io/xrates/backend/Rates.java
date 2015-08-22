@@ -1,4 +1,4 @@
-package io.xrates;
+package io.xrates.backend;
 
 import java.util.ArrayList;
 import java.util.Currency;
@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.xrates.constants.RateProvider;
+import io.xrates.backend.constants.RateProvider;
 
 public class Rates {
 	private RateProvider rateProvider;
