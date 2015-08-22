@@ -1,17 +1,15 @@
-package io.xrates.frontend.controller;
+package io.xrates.backend;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import io.xrates.backend.Application;
 import io.xrates.frontend.templates.SubscriptionForm;
 
 
