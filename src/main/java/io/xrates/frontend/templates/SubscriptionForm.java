@@ -66,4 +66,10 @@ public class SubscriptionForm {
 	public void setToCurrency(String toCurrency){
 		this.toCurrency= toCurrency;
 	}
+	
+	public static String[] getRelevantCurrencyList(String fromCurrency){
+		// TODO: Call relevant bean service here
+		String[] currencyList = {"USD", "AXI", "SDJ" ,"DSK", "HAF", "DSO", "DAD", "DDD", "SDD"};
+		return currencyList;
+	}
 }

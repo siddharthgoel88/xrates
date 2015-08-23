@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import io.xrates.frontend.templates.SubscriptionForm;
 
@@ -34,9 +35,10 @@ public class ControllerSubscriptionForm {
 	
 	@RequestMapping(value="/getToCurrencyList", 
 			params="fromCurrency", method=RequestMethod.POST)
-	public String getToCurrencyList(@RequestParam(value = "fromCurrency") String fromCurrency){
+	public @ResponseBody String[] getToCurrencyList(@RequestParam(value = "fromCurrency") String fromCurrency){
 		System.out.println("Got request parameter : " + fromCurrency);
-		return fromCurrency;
+		String[] currencyList = SubscriptionForm.getRelevantCurrencyList(fromCurrency);
+		return currencyList;
 	}
 	
 //	@ModelAttribute("currency")
