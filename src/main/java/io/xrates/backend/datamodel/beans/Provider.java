@@ -1,9 +1,10 @@
 package io.xrates.backend.datamodel.beans;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -18,8 +19,8 @@ public class Provider {
 	@Column(name = "provider_name")
 	private String providerName;
 	
-	@OneToMany
-	private List<Conversion> conversions;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "provider")
+	private Set<Service> service;
 
 	public long getProviderId() {
 		return providerId;
@@ -37,12 +38,12 @@ public class Provider {
 		this.providerName = providerName;
 	}
 
-	public List<Conversion> getConversions() {
-		return conversions;
+	public Set<Service> getService() {
+		return service;
 	}
 
-	public void setConversions(List<Conversion> conversions) {
-		this.conversions = conversions;
+	public void setService(Set<Service> service) {
+		this.service = service;
 	}
 	
 	

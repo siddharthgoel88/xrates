@@ -4,7 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,12 +29,12 @@ public class Subscription {
 	@Column(name = "start_date")
 	private Date startDate;
 
-	@ManyToOne
-	@JoinColumn(foreignKey = @ForeignKey(name = "user"))
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
-	@ManyToOne
-	@JoinColumn(foreignKey = @ForeignKey(name = "service_id"))
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "service_id", nullable = false)
 	private Service service;
 
 	public boolean isActive() {

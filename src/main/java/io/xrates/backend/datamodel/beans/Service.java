@@ -1,10 +1,10 @@
 package io.xrates.backend.datamodel.beans;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,15 +29,15 @@ public class Service {
 	@Column(name = "from_currency", length = 3)
 	private String fromCurrency;
 	
-	@ManyToOne
-	@JoinColumn(foreignKey = @ForeignKey(name = "provider_id"))
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "provider_id", nullable = false)
 	private Provider provider;
 
-	@OneToMany
-	private List<Subscription> subscriptions;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "service")
+	private Set<Subscription> subscriptions;
 	
-	@OneToMany
-	private List<Conversion> conversions;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "service")
+	private Set<Conversion> conversions;
 	
 	public long getServiceId() {
 		return serviceId;
@@ -63,11 +63,11 @@ public class Service {
 		this.fromCurrency = fromCurrency;
 	}
 
-	public List<Subscription> getSubscriptions() {
+	public Set<Subscription> getSubscriptions() {
 		return subscriptions;
 	}
 
-	public void setSubscriptions(List<Subscription> subscriptions) {
+	public void setSubscriptions(Set<Subscription> subscriptions) {
 		this.subscriptions = subscriptions;
 	}
 	

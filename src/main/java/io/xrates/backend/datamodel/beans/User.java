@@ -1,9 +1,10 @@
 package io.xrates.backend.datamodel.beans;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,9 +33,12 @@ public class User {
 	
 	@Column(name = "email_verified")
 	private boolean emailVerified;
+	
+	@Column(name = "contact_verified")
+	private boolean contactVerfied;
 
-	@OneToMany
-	private List<Subscription> subscriptions;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Subscription> subscriptions;
 	
 	public long getUser_id() {
 		return user_id;
@@ -76,11 +80,11 @@ public class User {
 		this.isd_code = isd_code;
 	}
 
-	public List<Subscription> getSubscriptions() {
+	public Set<Subscription> getSubscriptions() {
 		return subscriptions;
 	}
 
-	public void setSubscriptions(List<Subscription> subscriptions) {
+	public void setSubscriptions(Set<Subscription> subscriptions) {
 		this.subscriptions = subscriptions;
 	}
 
@@ -90,6 +94,14 @@ public class User {
 
 	public void setEmailVerified(boolean emailVerified) {
 		this.emailVerified = emailVerified;
+	}
+
+	public boolean isContactVerfied() {
+		return contactVerfied;
+	}
+
+	public void setContactVerfied(boolean contactVerfied) {
+		this.contactVerfied = contactVerfied;
 	}
 	
 }

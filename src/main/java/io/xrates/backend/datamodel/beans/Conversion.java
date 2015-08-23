@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,16 +31,20 @@ public class Conversion {
 	private Date conversionTimestamp;
 	
 	@Column(name = "conversion_rate", precision = 6)
-	float conversionRate;
+	private float conversionRate;
 
-	@ManyToOne
-	@JoinColumn(foreignKey = @ForeignKey(name = "service_id"))
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "service_id", nullable = false)
 	private Service service;
 	
-	@ManyToOne
-	@JoinColumn(foreignKey = @ForeignKey(name = "provider_id"))
-	private Provider provider;
-	
+	public Service getService() {
+		return service;
+	}
+
+	public void setService(Service service) {
+		this.service = service;
+	}
+
 	public long getConversionId() {
 		return conversionId;
 	}
