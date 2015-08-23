@@ -4,30 +4,43 @@
 <meta charset="UTF-8" />
 <title>Getting Started: Handing Form Submission</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!--  <link rel="stylesheet" type="text/css" href="subscribe.css">  -->	
 </head>
 <body>
-	<h1>Form</h1>
+	<h1 class="greeting-head">X-Rates</h1>
+	<div class="greeting-description"> Fill out the following form in order to subscribe.</div>
+	
     <form action="#" th:action="@{/greeting}" th:object="${greetingObj}" method="post">
-    	<p>Id: <input type="text" th:field="*{id}" /></p>
-        <p>From Currency: <input type="text" th:field="*{fromCurrency}" /></p>
-        <p>To Currency: <input type="text" th:field="*{toCurrency}" /></p>
-        <!--p><select  th:field="*{curr}">
-      			<option th:each="curr : ${curr}" 
-      					th:value="${entry.key}" 
-      					th:text="${entry.value}">
-        			This will be replaced is only used for natural templating
-      			</option>
-	   		</select>
-	   	</p>
-        <p><select>
-        		<option th:value="SGD" th:text="SGD">SGD</option>
-        		<option th:value="INR" th:text="INR">INR</option>
-  				<option th:each="eachcurr : ${curr}" 
-          				th:value="${eachcurr}" 
-          				th:text="${eachcurr}"></option>
-			</select>
-		</p-->
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    	
+    	<div>
+    		<div> Your Email Address: </div>
+    		<input type="text" th:field="*{id}" />
+    	</div>
+    	
+        <div> 
+        	<div>From Currency:</div> 
+        	<select th:field="*{currencyList}" id="fromCurrencyField">
+	        	<option value="NONE">From currency</option>
+        		<option th:each="currency : *{currencyList}"
+        				th:value = "${currency}"
+        				th:text= "${currency}">Currency</option>
+        	</select>
+        </div>
+        
+        <div> 
+        	<div> To Currency: </div>
+        	<input type="text" th:field="*{toCurrency}" />
+        </div>
+        
+        <div> 
+        	<div> Services: </div> 
+        	<div> 
+        	</div>
+        </div>
+        <div><input type="submit" value="Subscribe" /></div>
     </form>
+    <script src = "../static/js/lib/jquery-2.1.4.min.js" th:src="@{/js/lib/jquery-2.1.4.min.js}"/>
+    <script src = "../static/js/subscribe.js" th:src="@{/js/subscribe.js}"/>
+
 </body>
 </html>

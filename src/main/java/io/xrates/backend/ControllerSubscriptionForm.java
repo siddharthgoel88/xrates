@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import io.xrates.frontend.templates.SubscriptionForm;
 
@@ -20,7 +21,7 @@ public class ControllerSubscriptionForm {
 	
 	@RequestMapping(value="/greeting", method=RequestMethod.GET)
 	public String greetingForm(Model model){
-		model.addAttribute("greetingObj",new SubscriptionForm());
+		model.addAttribute("greetingObj", new SubscriptionForm());
 		
 		return "greetings";
 	}
@@ -29,6 +30,13 @@ public class ControllerSubscriptionForm {
 	public String greetingSubmit(@ModelAttribute SubscriptionForm greeting, Model model){
 		model.addAttribute("greeting",greeting);
 		return "result";
+	}
+	
+	@RequestMapping(value="/getToCurrencyList", 
+			params="fromCurrency", method=RequestMethod.POST)
+	public String getToCurrencyList(@RequestParam(value = "fromCurrency") String fromCurrency){
+		System.out.println("Got request parameter : " + fromCurrency);
+		return fromCurrency;
 	}
 	
 //	@ModelAttribute("currency")
