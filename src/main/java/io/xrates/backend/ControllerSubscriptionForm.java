@@ -35,12 +35,20 @@ public class ControllerSubscriptionForm {
 	
 	@RequestMapping(value="/getToCurrencyList", 
 			params="fromCurrency", method=RequestMethod.POST)
-	public @ResponseBody String[] getToCurrencyList(@RequestParam(value = "fromCurrency") String fromCurrency){
-		System.out.println("Got request parameter : " + fromCurrency);
+	@ResponseBody
+	public String[] getToCurrencyList(@RequestParam(value = "fromCurrency") String fromCurrency){
 		String[] currencyList = SubscriptionForm.getRelevantCurrencyList(fromCurrency);
 		return currencyList;
 	}
 	
+	@RequestMapping(value="/getServices",
+			params={"fromCurrency", "toCurrency"}, method=RequestMethod.POST)
+	@ResponseBody 
+	public String[] getServices(@RequestParam(value = "fromCurrency") String fromCurrency, @RequestParam(value = "toCurrency") String toCurrency){
+		String[] serviceList = SubscriptionForm.getRelevantServices(fromCurrency, toCurrency);
+		return serviceList;
+	}
+ 	
 //	@ModelAttribute("currency")
 //	public ArrayList<String> populateCurrency(){
 //		return (List<Currency>) Currency.getAvailableCurrencies();

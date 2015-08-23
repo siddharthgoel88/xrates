@@ -68,8 +68,14 @@ public class SubscriptionForm {
 	}
 	
 	public static String[] getRelevantCurrencyList(String fromCurrency){
-		// TODO: Call relevant bean service here
+		// TODO: Implement actual currency list here
 		String[] currencyList = {"USD", "AXI", "SDJ" ,"DSK", "HAF", "DSO", "DAD", "DDD", "SDD"};
 		return currencyList;
+	}
+	
+	public static String[] getRelevantServices(String fromCurrency, String toCurrency){
+		// TODO: Implement actual service list
+		String[] serviceList = {"DBS", "OCBC", "HDFC Bank" , "RemitGuru"};
+		return serviceList;
 	}
 }
