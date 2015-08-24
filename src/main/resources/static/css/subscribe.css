@@ -26,16 +26,23 @@ body{
 	padding-top: 2.5%;	
 	padding-bottom: 2.5%;
 }
-
+.form-green{
+	color: #34C46C;
+}
 
 .greeting-head, .to-label{
-	color: #34C46C;
     font-family: sans-serif;
     text-align: center;
 }
 
 .to-label{
 	margin: 1% 0 0 42%;
+}
+
+.dropdown-menu{
+	overflow-x: hidden;
+	max-height: 200px;
+	height: auto;
 }
 
 .dropdown-menu li{

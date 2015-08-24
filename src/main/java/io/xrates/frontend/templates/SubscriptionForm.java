@@ -1,6 +1,7 @@
 package io.xrates.frontend.templates;
 
 import java.util.Set;
+import java.util.Arrays;
 import java.util.Currency;
 
 public class SubscriptionForm {
@@ -14,10 +15,10 @@ public class SubscriptionForm {
 		currencyList = new String[currencySet.size()];
 		for (Currency currency : currencySet) {
 			currencyList[index++] = currency.getDisplayName();
-			System.out.println("currencyList: " + currencyList[index-1] );
 		}
+		Arrays.sort(currencyList);
 	}
-	private String emailAddress = "someone@somedomain.com";
+	private String emailAddress = "Your Email address: someone@somedomain.com";
 	
 	
 	public String[] getCurrencyList() {

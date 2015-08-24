@@ -71,7 +71,9 @@
 				var servicesContainer = $('#relevantServices');
 				
 				for(i=0;i<response.length; i++){
-					serviceOptions += "<input type='checkbox' name='services' value = '" + response[i] + "'>" + response[i] + "</input>"
+					serviceOptions += "<div class='service-option'> " +
+										"<input type='checkbox' name='services' value = '" + response[i] + "'>" + response[i] + "</input>" +
+									   "</div>"
 				}
 				servicesContainer.append(serviceOptions);
 			}, 

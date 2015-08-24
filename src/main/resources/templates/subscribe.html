@@ -10,9 +10,9 @@
 <body>
 	<div class="form-body">
 	    <form action="#" th:action="@{/greeting}" th:object="${greetingObj}" method="post">
-	    	<div class="subscribe-form">
+	    	<div class="subscribe-form container-fluid">
 	    		<div class="row">
-					<div class="col-md-8 col-md-offset-2"><h1 class="greeting-head">X-RATES</h1></div>
+					<div class="col-md-8 col-md-offset-2"><h1 class="greeting-head form-green">X-RATES</h1></div>
 				</div>
 		    	<div class="row form-group">
 		    		<input type="text" th:placeholder="*{emailAddress}" class="form-control" id="email-input"/>
@@ -40,17 +40,18 @@
 		        			<ul class="dropdown-menu to-currency-dropdown"></ul>
 		        		</div>
 		        	</div>
-		        	<div class="to-label">TO</div>
+		        	<div class="to-label form-green">TO</div>
 		        </div>
 		        
 		        <div class="row">
-		        	<div> Services: </div> 
+		        	<div class="form-green"> Services: </div> 
 		        	<div id="relevantServices"></div>
 		        </div>
 		        
 		        <div class="row">
-		        	<input type="checkbox" name="subscriptionType" value="regular"/> Subscribe to regular updates <br/>
-		        	<input type="checkbox" name="subscriptionType" value="conditional"/>Email me only when the rate is greater than X
+		        	<div class="form-green"> Email Frequency: </div>
+		        	<input type="radio" name="subscriptionType" value="regular"/> Subscribe to regular updates <br/>
+		        	<input type="radio" name="subscriptionType" value="conditional"/> Email me only when the rate is greater than 
 		        </div>
 	        </div>
 	        <div><input type="submit" value="SUBSCRIBE" class="btn btn-primary btn-lg btn-success subscribe-button"/></div>
