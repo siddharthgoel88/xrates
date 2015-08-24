@@ -1,6 +1,25 @@
 (function(){
 	
 	/*
+	 * Email Validation for Text field
+	 */
+	$('#email-input').focusout(function(){
+		 var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		 var emailValid = regex.test($(this).val());
+		 if(!emailValid){
+			 console.log("Invalid Email");
+			 $(this).parent('div').removeClass("has-success");
+			 $(this).parent('div').addClass("has-error");
+			 $('.subscribe-button').addClass('disabled');
+		 }else{
+			 console.log("Valid Email");
+			 $(this).parent('div').removeClass("has-error");
+			 $(this).parent('div').addClass("has-success");
+			 $('.subscribe-button').removeClass('disabled');
+		 }
+	});
+	
+	/*
 	 * Listen for a change in fromCurrency dropdown and get relevant toCurrency options available using
 	 * an AJAX call.
 	 */
