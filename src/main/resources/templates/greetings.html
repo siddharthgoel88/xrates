@@ -4,44 +4,61 @@
 <meta charset="UTF-8" />
 <title>Getting Started: Handing Form Submission</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<!--  <link rel="stylesheet" type="text/css" href="subscribe.css">  -->	
+<link rel="stylesheet" type="text/css" href="../static/css/lib/bootstrap.min.css" th:href="@{/css/lib/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" href="../static/css/subscribe.css" th:href="@{/css/subscribe.css}"/>	
 </head>
 <body>
-	<h1 class="greeting-head">X-Rates</h1>
-	<div class="greeting-description"> Fill out the following form in order to subscribe.</div>
-	
-    <form action="#" th:action="@{/greeting}" th:object="${greetingObj}" method="post">
-    	
-    	<div>
-    		<div> Your Email Address: </div>
-    		<input type="text" th:field="*{id}" />
-    	</div>
-    	
-        <div> 
-        	<div>From Currency:</div> 
-        	<select th:field="*{currencyList}" id="fromCurrencyField">
-	        	<option value="NONE">From currency</option>
-        		<option th:each="currency : *{currencyList}"
-        				th:value = "${currency}"
-        				th:text= "${currency}">Currency</option>
-        	</select>
-        </div>
-        
-        <div> 
-        	<div> To Currency: </div>
-        	<select id="toCurrencyField">
-        		<option value="NONE"></option>
-        	</select>
-        </div>
-        
-        <div> 
-        	<div> Services: </div> 
-        	<div id="relevantServices"></div>
-        </div>
-        <div><input type="submit" value="Subscribe" /></div>
-    </form>
-    <script src = "../static/js/lib/jquery-2.1.4.min.js" th:src="@{/js/lib/jquery-2.1.4.min.js}"/>
-    <script src = "../static/js/subscribe.js" th:src="@{/js/subscribe.js}"/>
+	<div class="form-body">
+	    <form action="#" th:action="@{/greeting}" th:object="${greetingObj}" method="post">
+	    	<div class="subscribe-form">
+	    		<div class="row">
+					<div class="col-md-8 col-md-offset-2"><h1 class="greeting-head">X-RATES</h1></div>
+				</div>
+		    	<div class="row">
+		    		<input type="text" th:placeholder="*{emailAddress}" class="form-control"/>
+		    	</div>
+		    	
+		        <div class="row"> 
+		        	<div class="float-left">
+		        		<div class="dropdown">
+			        		<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+		        				From Currency  <span class="caret"></span>
+		        			</button>
+			        		
+		        			<ul class="dropdown-menu from-currency-dropdown">
+			        			<li th:each="currency : *{currencyList}" th:text="${currency}"> <a href="#"> ${currency} </a></li>
+		        			</ul>
+		        		</div>
+		        	</div>
+		              	
+		        	<div class="float-right">
+		        		<div class="dropdown">
+			        		<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+		        				To Currency  <span class="caret"></span>
+		        			</button>
+			        		
+		        			<ul class="dropdown-menu to-currency-dropdown"></ul>
+		        		</div>
+		        	</div>
+		        	<div class="to-label">TO</div>
+		        </div>
+		        
+		        <div class="row">
+		        	<div> Services: </div> 
+		        	<div id="relevantServices"></div>
+		        </div>
+		        
+		        <div class="row">
+		        	<input type="checkbox" name="subscriptionType" value="regular"/> Subscribe to regular updates <br/>
+		        	<input type="checkbox" name="subscriptionType" value="conditional"/>Email me only when the rate is greater than X
+		        </div>
+	        </div>
+	        <div><input type="submit" value="SUBSCRIBE" class="btn btn-primary btn-lg btn-success subscribe-button"/></div>
+	    </form>
+    </div>
+    <script src = "../static/js/lib/jquery-2.1.4.min.js" th:src="@{/js/lib/jquery-2.1.4.min.js}"></script>
+    <script src = "../static/js/lib/bootstrap.min.js" th:src="@{/js/lib/bootstrap.min.js}"></script>
+    <script src = "../static/js/subscribe.js" th:src="@{/js/subscribe.js}"></script>
 
 </body>
 </html>

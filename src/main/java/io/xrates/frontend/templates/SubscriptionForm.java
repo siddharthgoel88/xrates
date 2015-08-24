@@ -6,8 +6,6 @@ import java.util.Currency;
 public class SubscriptionForm {
 	
 	private static String[] currencyList = null;
-	private String fromCurrency = "type from currency code";
-	private String toCurrency= "type from currency code";
 	private String selectedCurrency = "SGD";
 	
 	static{
@@ -15,11 +13,11 @@ public class SubscriptionForm {
 		Set<Currency> currencySet = Currency.getAvailableCurrencies();
 		currencyList = new String[currencySet.size()];
 		for (Currency currency : currencySet) {
-			currencyList[index++] = currency.getCurrencyCode();
+			currencyList[index++] = currency.getDisplayName();
 			System.out.println("currencyList: " + currencyList[index-1] );
 		}
 	}
-	private long id = 999L;
+	private String emailAddress = "someone@somedomain.com";
 	
 	
 	public String[] getCurrencyList() {
@@ -42,31 +40,12 @@ public class SubscriptionForm {
 		this.selectedCurrency = curr;
 	}
 	
-	
-	public long getId(){
-		return id;
+	public String getEmailAddress() {
+		return emailAddress;
 	}
-	
-	public void setId(long id){
-		this.id = id;
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
-	
-	public String getFromCurrency(){
-		return fromCurrency;
-	}
-	
-	public void setFromCurrency(String fromCurrency){
-		this.fromCurrency= fromCurrency;
-	}
-	
-	public String getToCurrency(){
-		return toCurrency;
-	}
-	
-	public void setToCurrency(String toCurrency){
-		this.toCurrency= toCurrency;
-	}
-	
 	public static String[] getRelevantCurrencyList(String fromCurrency){
 		// TODO: Implement actual currency list here
 		String[] currencyList = {"USD", "AXI", "SDJ" ,"DSK", "HAF", "DSO", "DAD", "DDD", "SDD"};
