@@ -16,18 +16,18 @@ import io.xrates.frontend.templates.SubscriptionForm;
 
 
 @Controller
-public class ControllerSubscriptionForm {
+public class SubscriptionFormController {
 	Map<String,String> clientImpMap = new HashMap<String,String> ();
 	ArrayList<String> curr = new ArrayList<>();
 	
-	@RequestMapping(value="/greeting", method=RequestMethod.GET)
+	@RequestMapping(value="/subscribe", method=RequestMethod.GET)
 	public String greetingForm(Model model){
 		model.addAttribute("greetingObj", new SubscriptionForm());
 		
-		return "greetings";
+		return "subscribe";
 	}
 	
-	@RequestMapping(value="/greeting", method=RequestMethod.POST)
+	@RequestMapping(value="/subscribe", method=RequestMethod.POST)
 	public String greetingSubmit(@ModelAttribute SubscriptionForm greeting, Model model){
 		model.addAttribute("greeting",greeting);
 		return "result";
