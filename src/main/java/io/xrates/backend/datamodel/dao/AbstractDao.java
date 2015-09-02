@@ -1,4 +1,4 @@
-package io.xrates.backend.datamodel;
+package io.xrates.backend.datamodel.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
@@ -6,20 +6,18 @@ import java.lang.reflect.ParameterizedType;
 import java.sql.Date;
 import java.util.List;
 
-import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.ReflectionUtils;
 
+@Repository
 public class AbstractDao<T extends Object> implements Dao<T> {
 
-	@Inject private SessionFactory sessionFactory;
+	@PersistenceContext
+	private EntityManager entityManager;
 	private Class<T> domainClass;
-
-	protected Session getSession() {
-		return sessionFactory.getCurrentSession();
-	}
 	
 	@SuppressWarnings("unchecked")
 	private Class<T> getDomainClass() {
@@ -45,37 +43,37 @@ public class AbstractDao<T extends Object> implements Dao<T> {
 				method.invoke(t, new Date(0));
 			} catch(Exception e) { /* Ignore */ }
 		}
-		getSession().save(t);
+		entityManager.persist(t);;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public T get(Serializable id) {
-		return (T) getSession().get(getDomainClass(), id);
+		return (T) entityManager.find(getDomainClass(), id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public T load(Serializable id) {
-		return (T) getSession().load(getDomainClass(), id);
+		return (T) entityManager.find(getDomainClass(), id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> getAll() {
-		return getSession()
+		return entityManager
 				.createQuery("from " + getDomainClassName())
-				.list();
+				.getResultList();
 	}
 
 	@Override
 	public void update(T t) {
-		getSession().update(t);
+		entityManager.persist(t);
 	}
 
 	@Override
 	public void delete(T t) {
-		getSession().delete(t);
+		entityManager.remove(t);;
 	}
 
 	@Override
@@ -85,16 +83,16 @@ public class AbstractDao<T extends Object> implements Dao<T> {
 
 	@Override
 	public void deleteAll() {
-		getSession()
+		entityManager
 			.createQuery("delete " + getDomainClassName())
 			.executeUpdate();
 	}
 
 	@Override
 	public long count() {
-		return (Long) getSession()
+		return (Long) entityManager
 				.createQuery("select count(*) from " + getDomainClassName())
-				.uniqueResult();
+				.getSingleResult();
 	}
 
 	@Override
