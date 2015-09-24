@@ -1,17 +1,23 @@
 package io.xrates.backend;
 
+import io.xrates.backend.constants.RateProvider;
+
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.xrates.backend.constants.RateProvider;
-
 public class Rates {
-	private RateProvider rateProvider;
+	private RateProvider rateProvider = null;
 	private List<Currency> availableCurrencies = new ArrayList<Currency>();
 	private Map<String, Map<String, Double>> rates = new HashMap<String, Map<String,Double>>();
+	private Date rateCaptureTime;
+	
+	public Rates() {
+		setRateCaptureTime(new Date());
+	}
 	
 	public void addAvailableCurrency(Currency cur) {
 		availableCurrencies.add(cur);
@@ -60,5 +66,13 @@ public class Rates {
 
 	public void setRateProvider(RateProvider rateProvider) {
 		this.rateProvider = rateProvider;
+	}
+
+	public Date getRateCaptureTime() {
+		return rateCaptureTime;
+	}
+
+	private void setRateCaptureTime(Date rateCaptureTime) {
+		this.rateCaptureTime = rateCaptureTime;
 	}
 }

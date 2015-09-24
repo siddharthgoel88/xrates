@@ -1,26 +1,41 @@
 package io.xrates.backend.rateprovider;
 
+import io.xrates.backend.Rates;
+import io.xrates.backend.constants.RateProvider;
+import io.xrates.backend.datamodel.util.XratesDBUtil;
+import io.xrates.backend.exceptions.RateProviderException;
+
 import java.util.Currency;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.lalyos.jfiglet.FigletFont;
 
-import io.xrates.backend.Rates;
-import io.xrates.backend.constants.RateProvider;
-
 public abstract class AbstractRateProvider implements IRateProvider {
-	private Rates rates = new Rates(); 
-	private RateProvider rateProvider;
+	protected Rates rates = null;
+	private RateProvider rateProvider = null;
 	private long lastUpdated = -1;
 	private long stalenessTime = 300000; //Data which is stale up to 5 minutes is fine
 	private Logger log = LoggerFactory.getLogger(AbstractRateProvider.class.getName());
+	
+	@Autowired
+	private XratesDBUtil xratesDBUtil;
 		
-	public double convert(Currency from, Currency to) {
+	public double convert(Currency from, Currency to) throws RateProviderException {
+		if (rateProvider == null) {
+			throw new RateProviderException("RateProvider not set.");
+		}
+		
 		long currentTime = System.currentTimeMillis();
 		if (currentTime - lastUpdated > stalenessTime) {
+			log.info("Instantiating following service : \n" + 
+					FigletFont.convertOneLine(rateProvider.getProviderName()));
+			rates = new Rates();
+			rates.setRateProvider(rateProvider);
 			updateRates();
+			xratesDBUtil.persistRates(rates);
 			lastUpdated = currentTime;
 		}
 		return rates.getConversion(from, to);
@@ -31,7 +46,6 @@ public abstract class AbstractRateProvider implements IRateProvider {
 	}
 	
 	protected void setRateProvider(RateProvider rateProvider) {
-		log.info("Instantiating following service : \n" + FigletFont.convertOneLine(rateProvider.getProviderName()));
 		this.rateProvider = rateProvider;
 	}
 	

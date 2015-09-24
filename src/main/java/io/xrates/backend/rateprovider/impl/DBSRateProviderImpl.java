@@ -5,6 +5,10 @@
  * */
 
 package io.xrates.backend.rateprovider.impl;
+import io.xrates.backend.constants.RateProvider;
+import io.xrates.backend.rateprovider.AbstractRateProvider;
+import io.xrates.backend.rateprovider.util.CurrencyAdapter;
+
 import java.io.IOException;
 import java.util.Currency;
 
@@ -15,21 +19,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import io.xrates.backend.Rates;
-import io.xrates.backend.constants.RateProvider;
-import io.xrates.backend.rateprovider.AbstractRateProvider;
-import io.xrates.backend.rateprovider.util.CurrencyAdapter;
-
 @Component
 public class DBSRateProviderImpl extends AbstractRateProvider {
 	private String resourceURL = "http://www.dbs.com.sg/personal/rates-online/foreign-currency-foreign-exchange.page";
 	private Logger log = LoggerFactory.getLogger(DBSRateProviderImpl.class.getName());
 	private Currency base = Currency.getInstance("SGD");
-	private Rates rates = getRates();
 	
 	public DBSRateProviderImpl() {
 		setRateProvider(RateProvider.DBS);
-		rates.addAvailableCurrency(base);
 	}
 	
 	@Override

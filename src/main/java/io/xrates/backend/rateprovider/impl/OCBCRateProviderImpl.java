@@ -20,7 +20,6 @@ public class OCBCRateProviderImpl extends AbstractRateProvider{
 	private String resourceUrl = "https://www.ocbc.com/rates/daily_price_fx.html";
 //	private Double toSGD = 0.0;
 	private Logger log = LoggerFactory.getLogger(OCBCRateProviderImpl.class.getName());
-	private Rates rates = getRates();
 	
 	private String fromCurrency = "INR";
 	

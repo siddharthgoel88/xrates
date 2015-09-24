@@ -41,10 +41,5 @@ public class Provider {
 	public Set<Service> getService() {
 		return service;
 	}
-
-	public void setService(Set<Service> service) {
-		this.service = service;
-	}
-	
 	
 }

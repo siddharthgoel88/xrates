@@ -13,13 +13,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.ReflectionUtils;
 
 @Repository
+@SuppressWarnings("unchecked")
 public class AbstractDao<T extends Object> implements Dao<T> {
 
 	@PersistenceContext
-	private EntityManager entityManager;
-	private Class<T> domainClass;
+	protected EntityManager entityManager;
+	protected Class<T> domainClass;
 	
-	@SuppressWarnings("unchecked")
 	private Class<T> getDomainClass() {
 		if (domainClass == null) {
 			ParameterizedType thisType = 
@@ -46,19 +46,16 @@ public class AbstractDao<T extends Object> implements Dao<T> {
 		entityManager.persist(t);;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public T get(Serializable id) {
 		return (T) entityManager.find(getDomainClass(), id);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public T load(Serializable id) {
 		return (T) entityManager.find(getDomainClass(), id);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> getAll() {
 		return entityManager

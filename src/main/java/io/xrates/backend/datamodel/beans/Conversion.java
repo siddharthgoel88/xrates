@@ -30,7 +30,7 @@ public class Conversion {
 	private Date conversionTimestamp;
 	
 	@Column(name = "conversion_rate", precision = 6)
-	private float conversionRate;
+	private double conversionRate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service_id", nullable = false)
@@ -48,10 +48,6 @@ public class Conversion {
 		return conversionId;
 	}
 
-	public void setConversionId(long conversionId) {
-		this.conversionId = conversionId;
-	}
-
 	public Date getConversionTimestamp() {
 		return conversionTimestamp;
 	}
@@ -60,11 +56,11 @@ public class Conversion {
 		this.conversionTimestamp = conversionTimestamp;
 	}
 
-	public float getConversionRate() {
+	public double getConversionRate() {
 		return conversionRate;
 	}
 
-	public void setConversionRate(float conversionRate) {
+	public void setConversionRate(double conversionRate) {
 		this.conversionRate = conversionRate;
 	}
 	

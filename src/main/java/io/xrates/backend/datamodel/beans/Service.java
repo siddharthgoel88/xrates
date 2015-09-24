@@ -29,9 +29,17 @@ public class Service {
 	@Column(name = "from_currency", length = 3)
 	private String fromCurrency;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "provider_id", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "provider_id", referencedColumnName = "provider_id", nullable = false)
 	private Provider provider;
+
+	public Provider getProvider() {
+		return provider;
+	}
+
+	public void setProvider(Provider provider) {
+		this.provider = provider;
+	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "service")
 	private Set<Subscription> subscriptions;
@@ -41,10 +49,6 @@ public class Service {
 	
 	public long getServiceId() {
 		return serviceId;
-	}
-
-	public void setServiceId(long serviceId) {
-		this.serviceId = serviceId;
 	}
 
 	public String getToCurrency() {
@@ -66,11 +70,6 @@ public class Service {
 	public Set<Subscription> getSubscriptions() {
 		return subscriptions;
 	}
-
-	public void setSubscriptions(Set<Subscription> subscriptions) {
-		this.subscriptions = subscriptions;
-	}
-	
 	
 }
  

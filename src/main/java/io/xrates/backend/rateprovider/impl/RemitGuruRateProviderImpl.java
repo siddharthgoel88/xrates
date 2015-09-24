@@ -26,13 +26,11 @@ public class RemitGuruRateProviderImpl extends AbstractRateProvider {
 	private String resourceUrl = "http://www.remitguru.com/transfer/jsp/getQTStatistics.jsp";
 	private Logger log = LoggerFactory.getLogger(RemitGuruRateProviderImpl.class.getName());
 	private Currency toCurr = Currency.getInstance("INR");
-	private Rates rates = getRates();
 	private List<String> currDetailList = new ArrayList<>();
 	private int amount = 1000;
 	
 	public RemitGuruRateProviderImpl() {
 		setRateProvider(RateProvider.REMIT);
-		rates.addAvailableCurrency(toCurr);
 		currDetailList.add("GB~GBP~IN~INR");
 		currDetailList.add("SG~SGD~IN~INR");
 		currDetailList.add("EU~EUR~IN~INR");
