@@ -54,7 +54,7 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 			Currency toCur = getCurrency(table, i);
 			int unit = getUnit(table, i);
 			double rate = getRate(table, i);
-			double perRate = (unit > 0) ? (rate/unit) : rate;
+			double perRate = (rate > 0) ? (unit/rate) : -1;
 			
 			rates.addAvailableCurrency(toCur);
 			rates.setConversion(base, toCur, perRate);

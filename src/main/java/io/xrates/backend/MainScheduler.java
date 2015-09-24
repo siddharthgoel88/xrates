@@ -18,8 +18,6 @@ public class MainScheduler {
 	
 	Logger log = LoggerFactory.getLogger(MainScheduler.class.getName());
 	
-
-	//Method based dependencLogger log = LoggerFactory.getLogger(MainScheduler.class.getName());y injection
 	@Autowired
 	private List<IRateProvider> rateProviders;
 	
@@ -28,7 +26,12 @@ public class MainScheduler {
 		log.debug("Running scheduler");
 		for (int i = 0;i<this.rateProviders.size();i++){
 			try {
-				log.info("For 1 "+Currency.getInstance("INR").getDisplayName() +" you get "+String.valueOf(this.rateProviders.get(i).convert(Currency.getInstance("INR"), Currency.getInstance("SGD")))+" "+ Currency.getInstance("SGD").getDisplayName());
+				log.info(rateProviders.get(i).getRateProvider().getProviderName() + 
+						" : For 1 "+Currency.getInstance("SGD").getDisplayName() +
+						" you get " + String.valueOf( 
+							this.rateProviders.get(i).convert(Currency.getInstance("SGD"), 
+							Currency.getInstance("INR"))) 
+							+ " " + Currency.getInstance("INR").getDisplayName());
 			} catch (RateProviderException e) {
 				log.error("Error in " + rateProviders.getClass() + " :" + e.getMessage());
 			}
