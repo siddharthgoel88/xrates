@@ -36,7 +36,7 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 			log.info("DBS: Fetching page @ " + resourceURL);
 			Document doc = getDocument();
 			extractRates(doc.select("div.rates-table").get(0).select("table tbody").get(0));
-			extractRates(doc.select("div.rates-table").get(1).select("table tbody").get(1));
+			extractRates(doc.select("div.filterHld").get(0).select("table tbody").get(0));
 		} catch (IOException e) {
 			log.error("DBS: fetching page caused some error !");
 			e.printStackTrace();
@@ -64,17 +64,17 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 	}
 	
 	private double getRate(Element table, int index) {
-		double rate = Double.parseDouble(table.select("tr").get(index).select("td").get(2).text());
+		double rate = Double.parseDouble(table.select("tr").get(index).select("td").get(0).text());
 		return rate;
 	}
 
 	private int getUnit(Element table, int index) {
-		int unit = Integer.parseInt(table.select("tr").get(index).select("td").get(1).text());
+		int unit = Integer.parseInt(table.select("tr").get(index).select("th").get(1).text());
 		return unit;
 	}
 
 	private Currency getCurrency(Element table, int index) {
-		String currencyName  = table.select("tr").get(index).select("td").get(0).text().replace("\u00a0", "");
+		String currencyName  = table.select("tr").get(index).select("th").get(0).text().replace("\u00a0", "");
 		return CurrencyAdapter.getInstance(currencyName);
 	}
 }
