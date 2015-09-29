@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(name = "User")
@@ -17,19 +20,20 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
-	private long user_id;
+	private long userId;
 	
 	@Column(name = "user_name", nullable=false)
 	private String name;
 	
-	@Column(name = "email", nullable=false)
+	@Column(unique = true, name = "email", nullable=false)
+	@Email
 	private String email;
 	
 	@Column(name = "contact_number")
-	private long contact_number;
+	private long contactNumber;
 	
 	@Column(name = "isd_code", length = 3)
-	private int isd_code;
+	private int isdCode;
 	
 	@Column(name = "email_verified")
 	private boolean emailVerified;
@@ -40,12 +44,8 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Subscription> subscriptions;
 	
-	public long getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(long user_id) {
-		this.user_id = user_id;
+	public long getUserId() {
+		return userId;
 	}
 
 	public String getName() {
@@ -65,19 +65,19 @@ public class User {
 	}
 
 	public long getContact_number() {
-		return contact_number;
+		return contactNumber;
 	}
 
-	public void setContact_number(long contact_number) {
-		this.contact_number = contact_number;
+	public void setContactNumber(long contactNumber) {
+		this.contactNumber = contactNumber;
 	}
 
-	public int getIsd_code() {
-		return isd_code;
+	public int getIsdCode() {
+		return isdCode;
 	}
 
-	public void setIsd_code(int isd_code) {
-		this.isd_code = isd_code;
+	public void setIsdCode(int isdCode) {
+		this.isdCode = isdCode;
 	}
 
 	public Set<Subscription> getSubscriptions() {

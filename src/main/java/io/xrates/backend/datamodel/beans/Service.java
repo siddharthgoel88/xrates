@@ -29,7 +29,7 @@ public class Service {
 	@Column(name = "from_currency", length = 3)
 	private String fromCurrency;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "provider_id", referencedColumnName = "provider_id", nullable = false)
 	private Provider provider;
 

@@ -9,10 +9,10 @@ import io.xrates.backend.constants.RateProvider;
 import io.xrates.backend.datamodel.beans.Provider;
 
 @Repository
+@Transactional
 public class ProviderDaoImpl extends AbstractDao<Provider> implements ProviderDao {
 
 	@Override
-	@Transactional
 	public Provider findProvider(RateProvider rateProvider) {
 		Provider provider = get((Long) rateProvider.getValue());
 		
@@ -23,8 +23,6 @@ public class ProviderDaoImpl extends AbstractDao<Provider> implements ProviderDa
 			
 			create(provider);
 		}
-		
 		return provider;
 	}
-	
 }

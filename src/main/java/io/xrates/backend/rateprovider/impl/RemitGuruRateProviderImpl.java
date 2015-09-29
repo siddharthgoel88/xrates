@@ -1,10 +1,11 @@
 package io.xrates.backend.rateprovider.impl;
 
+import io.xrates.backend.constants.RateProvider;
+import io.xrates.backend.rateprovider.AbstractRateProvider;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -16,10 +17,6 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-import io.xrates.backend.Rates;
-import io.xrates.backend.constants.RateProvider;
-import io.xrates.backend.rateprovider.AbstractRateProvider;
 
 @Component
 public class RemitGuruRateProviderImpl extends AbstractRateProvider {

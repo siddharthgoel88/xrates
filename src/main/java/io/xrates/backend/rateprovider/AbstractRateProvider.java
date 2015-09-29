@@ -40,7 +40,7 @@ public abstract class AbstractRateProvider implements IRateProvider {
 		}
 		return round(rates.getConversion(from, to), 2);
 	}
-	
+
 	public RateProvider getRateProvider() {
 		return rateProvider;
 	}

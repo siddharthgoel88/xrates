@@ -22,12 +22,16 @@ public class Subscription {
 	@Column(name="id")
 	private long subscriptionId;
 	
-	@Column(name = "active")
+	@Column(name = "active", nullable = false)
 	private boolean isActive;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "start_date")
+	@Column(name = "start_date", nullable = false)
 	private Date startDate;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "end_date")
+	private Date endDate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
@@ -49,16 +53,20 @@ public class Subscription {
 		return subscriptionId;
 	}
 
-	public void setSubscriptionId(long subscriptionId) {
-		this.subscriptionId = subscriptionId;
-	}
-
 	public Date getStartDate() {
 		return startDate;
 	}
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public User getUser() {

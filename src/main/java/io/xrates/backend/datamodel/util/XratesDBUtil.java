@@ -10,6 +10,7 @@ import io.xrates.backend.datamodel.dao.ProviderDao;
 import io.xrates.backend.datamodel.dao.ServiceDao;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -47,6 +48,10 @@ public class XratesDBUtil {
 				conversionDao.create(conversion);
 			}
 		}
+	}
+	
+	public List<Provider> listOfServiceProviders(String fromCurrency, String toCurrency) {
+		return serviceDao.findProviders(fromCurrency, toCurrency);
 	}
 	
 	private Service getService(String fromCurrency, String toCurrency, Provider provider) {
