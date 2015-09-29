@@ -15,7 +15,7 @@ import com.sendgrid.SendGridException;
 public class XratesEmailSendGridImpl implements XratesEmail {
 	
 	private Logger log = LoggerFactory.getLogger(XratesEmailSendGridImpl.class.getName());
-	private static SendGrid sendGrid = new SendGrid("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");
+	private static SendGrid sendGrid = new SendGrid("api-key-here");
 	private String subject = "";
 	private String textBody = "";
 	private String htmlBody = "";
