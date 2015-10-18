@@ -2,6 +2,8 @@ package io.xrates.backend.datamodel.beans;
 
 import java.util.Date;
 
+import io.xrates.backend.constants.Constants;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,11 +28,17 @@ public class Conversion {
 	private long conversionId;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "conversion_timestamp")
+	@Column(name = "conversion_timestamp", nullable = false)
 	private Date conversionTimestamp;
 	
 	@Column(name = "conversion_rate", precision = 6)
 	private double conversionRate;
+	
+	@Column(name = "status")
+	private String status = Constants.UNPROCESSED;
+	
+	@Column(name = "percent_change")
+	private double percentChange = 0.0;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service_id", nullable = false)
@@ -42,6 +50,22 @@ public class Conversion {
 
 	public void setService(Service service) {
 		this.service = service;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public double getPercentChange() {
+		return percentChange;
+	}
+
+	public void setPercentChange(double percentChange) {
+		this.percentChange = percentChange;
 	}
 
 	public long getConversionId() {

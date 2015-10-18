@@ -23,10 +23,10 @@ public class Service {
 	@Column(name="service_id")
 	private long serviceId;
 	
-	@Column(name = "to_currency", length = 3)
+	@Column(name = "to_currency", length = 3, nullable = false)
 	private String toCurrency;
 	
-	@Column(name = "from_currency", length = 3)
+	@Column(name = "from_currency", length = 3, nullable = false)
 	private String fromCurrency;
 	
 	@ManyToOne(fetch = FetchType.EAGER, optional = false)

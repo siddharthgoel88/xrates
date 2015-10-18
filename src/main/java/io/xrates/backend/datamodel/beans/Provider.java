@@ -16,7 +16,7 @@ public class Provider {
 	@Column(name = "provider_id")
 	private long providerId;
 	
-	@Column(name = "provider_name")
+	@Column(name = "provider_name", nullable = false)
 	private String providerName;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "provider")

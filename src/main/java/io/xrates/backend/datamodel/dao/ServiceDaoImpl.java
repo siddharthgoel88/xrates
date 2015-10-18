@@ -55,7 +55,7 @@ public class ServiceDaoImpl extends AbstractDao<Service> implements ServiceDao {
 				+ "service.toCurrency = :toCurrency and service.fromCurrency = :fromCurrency");
 		query.setParameter("fromCurrency", fromCurrency);
 		query.setParameter("toCurrency", toCurrency);
-		List<Service> services = (List<Service>) query.getResultList();
+		List<Service> services = query.getResultList();
 		List<Provider> providers = new ArrayList<Provider>();
 		for (Service service: services) {
 			providers.add(service.getProvider());
