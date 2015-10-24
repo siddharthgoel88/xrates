@@ -7,11 +7,13 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.sendgrid.SendGrid;
 import com.sendgrid.SendGrid.Email;
 import com.sendgrid.SendGridException;
 
+@Component
 public class XratesEmailSendGridImpl implements XratesEmail {
 	
 	private Logger log = LoggerFactory.getLogger(XratesEmailSendGridImpl.class.getName());
@@ -29,7 +31,6 @@ public class XratesEmailSendGridImpl implements XratesEmail {
 			toList = new ArrayList<User>();
 		}
 		toList.add(user);
-		addTo(toList);
 	}
 
 	@Override
