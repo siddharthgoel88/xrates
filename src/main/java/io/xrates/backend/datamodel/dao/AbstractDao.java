@@ -35,6 +35,7 @@ public class AbstractDao<T extends Object> implements Dao<T> {
 	
 	@Override
 	public void create(T t) {
+		entityManager.flush();
 		Method method = ReflectionUtils.findMethod(
 				getDomainClass(), "setDateCreated",
 				new Class[] { Date.class });
@@ -43,11 +44,12 @@ public class AbstractDao<T extends Object> implements Dao<T> {
 				method.invoke(t, new Date(0));
 			} catch(Exception e) { /* Ignore */ }
 		}
-		entityManager.persist(t);;
+		entityManager.persist(t);
 	}
 
 	@Override
 	public T get(Serializable id) {
+		entityManager.flush();
 		return (T) entityManager.find(getDomainClass(), id);
 	}
 
@@ -58,6 +60,7 @@ public class AbstractDao<T extends Object> implements Dao<T> {
 
 	@Override
 	public List<T> getAll() {
+		entityManager.flush();
 		return entityManager
 				.createQuery("from " + getDomainClassName())
 				.getResultList();
@@ -65,21 +68,25 @@ public class AbstractDao<T extends Object> implements Dao<T> {
 
 	@Override
 	public void update(T t) {
+		entityManager.flush();
 		entityManager.persist(t);
 	}
 
 	@Override
 	public void delete(T t) {
-		entityManager.remove(t);;
+		entityManager.flush();
+		entityManager.remove(t);
 	}
 
 	@Override
 	public void deleteById(Serializable id) {
-		delete(load(id));;
+		entityManager.flush();
+		delete(load(id));
 	}
 
 	@Override
 	public void deleteAll() {
+		entityManager.flush();
 		entityManager
 			.createQuery("delete " + getDomainClassName())
 			.executeUpdate();
@@ -87,6 +94,7 @@ public class AbstractDao<T extends Object> implements Dao<T> {
 
 	@Override
 	public long count() {
+		entityManager.flush();
 		return (Long) entityManager
 				.createQuery("select count(*) from " + getDomainClassName())
 				.getSingleResult();
@@ -94,6 +102,7 @@ public class AbstractDao<T extends Object> implements Dao<T> {
 
 	@Override
 	public boolean exists(Serializable id) {
+		entityManager.flush();
 		return (get(id) != null);
 	}
 

@@ -4,6 +4,7 @@ import io.xrates.backend.datamodel.beans.Provider;
 import io.xrates.backend.datamodel.beans.Service;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -62,5 +63,13 @@ public class ServiceDaoImpl extends AbstractDao<Service> implements ServiceDao {
 		}
 		return providers;
 	}
-	
+
+	@Override
+	public List<String> findToCurrencies(String fromCurrency) {
+		Query query = entityManager.createQuery("select service.toCurrency from Service "
+				+ "service where service.fromCurrency = :fromCurrency");
+		query.setParameter("fromCurrency", fromCurrency);
+		List<String> result = query.getResultList();
+		return result;
+	}
 }
