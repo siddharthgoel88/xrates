@@ -11,7 +11,7 @@ This project is built to notify a user when the exchange rates of a particular c
 ## Tech stack
 - Java 1.8
 - Spring Boot
-- Hibernate
+- Hibernate as JPA provider
 - Maven
 - MySQL
 
