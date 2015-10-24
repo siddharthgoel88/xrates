@@ -35,8 +35,8 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 		try {
 			log.info("DBS: Fetching page @ " + resourceURL);
 			Document doc = getDocument();
-			extractRates(doc.select("div.rates-table").get(0).select("table tbody").get(0));
 			extractRates(doc.select("div.filterHld").get(0).select("table tbody").get(0));
+			extractRates(doc.select("div.filterHld").get(1).select("table tbody").get(0));
 		} catch (IOException e) {
 			log.error("DBS: fetching page caused some error !");
 			e.printStackTrace();
