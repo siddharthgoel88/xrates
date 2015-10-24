@@ -1,8 +1,5 @@
 package io.xrates.backend;
 
-import io.xrates.backend.communication.XratesEmail;
-import io.xrates.backend.communication.XratesEmailSendGridImpl;
-import io.xrates.backend.datamodel.beans.User;
 import io.xrates.backend.datamodel.dao.UserDao;
 import io.xrates.backend.exceptions.RateProviderException;
 import io.xrates.backend.ratecheck.BusinessLogic;
@@ -34,25 +31,10 @@ public class MainScheduler {
 	@Autowired
 	private BusinessLogic bl;
 	
-//	private XratesEmail email = new XratesEmailSendGridImpl();
-	
-//	private static boolean flag = true;
-	
 	@Scheduled(fixedRate = 10000)
 	@Transactional
 	public void getRate() throws IOException {
 		log.debug("Running scheduler");
-
-		/*
-		if (flag) {
-			List<User> users = userDao.getAll();
-			email.addTo(users);
-			email.addSubject("Just another subject");
-			email.addTextBody("Email body !!!");
-			email.setFromEmail("no-reply@xrates.io");
-			email.sendMail();
-		}
-		*/
 		
 		for (int i = 0;i<this.rateProviders.size();i++){
 			try {
@@ -66,6 +48,8 @@ public class MainScheduler {
 				log.error("Error in " + rateProviders.getClass() + " :" + e.getMessage());
 			}
 		}
+		
 		bl.process();
+		bl.notifyAlerts();
 	}
 }
