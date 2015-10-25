@@ -2,6 +2,7 @@ package io.xrates.backend.rateprovider.impl;
 
 import io.xrates.backend.constants.RateProvider;
 import io.xrates.backend.rateprovider.AbstractRateProvider;
+import io.xrates.backend.rateprovider.util.UserAgentFactory;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class RemitGuruRateProviderImpl extends AbstractRateProvider {
 	private String resourceUrl = "http://www.remitguru.com/transfer/jsp/getQTStatistics.jsp";
 	private Logger log = LoggerFactory.getLogger(RemitGuruRateProviderImpl.class.getName());
@@ -40,7 +41,7 @@ public class RemitGuruRateProviderImpl extends AbstractRateProvider {
         uc.addRequestProperty("Origin", "http://www.remitguru.com");
         uc.addRequestProperty("Accept-Encoding","gzip, deflate, value");
         uc.addRequestProperty("Accept-Language","en-US,en;q=0.8,hi;q=0.6");
-        uc.addRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36");
+        uc.addRequestProperty("User-Agent", UserAgentFactory.getRandomUserAgent());
         uc.addRequestProperty("Content-type", "application/x-www-form-urlencoded");
         uc.addRequestProperty("Accept", "/");
         uc.addRequestProperty("Referer","http://www.remitguru.com/");

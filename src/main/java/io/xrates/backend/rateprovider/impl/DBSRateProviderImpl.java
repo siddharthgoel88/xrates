@@ -8,6 +8,7 @@ package io.xrates.backend.rateprovider.impl;
 import io.xrates.backend.constants.RateProvider;
 import io.xrates.backend.rateprovider.AbstractRateProvider;
 import io.xrates.backend.rateprovider.util.CurrencyAdapter;
+import io.xrates.backend.rateprovider.util.UserAgentFactory;
 
 import java.io.IOException;
 import java.util.Currency;
@@ -44,7 +45,10 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 	}
 	
 	private Document getDocument() throws IOException {
-		Document doc = Jsoup.connect(resourceURL).get();
+		Document doc = Jsoup.connect(resourceURL)
+						.userAgent(UserAgentFactory.getRandomUserAgent())
+						.referrer("https://www.google.com/")
+						.get();
 		return doc;
 	}
 	
@@ -52,6 +56,9 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 		int length = table.select("tr").size();
 		for (int i=0; i<length; i++) {
 			Currency toCur = getCurrency(table, i);
+			if (toCur == null) {
+				continue;
+			}
 			int unit = getUnit(table, i);
 			double rate = getRate(table, i);
 			double perRate = (rate > 0) ? (unit/rate) : -1;
@@ -59,7 +66,7 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 			rates.addAvailableCurrency(toCur);
 			rates.setConversion(base, toCur, perRate);
 			
-			log.info(toCur.getDisplayName() + " : " + unit + " units @ " + rate);
+			log.info(toCur.getCurrencyCode() + " : " + unit + " units @ " + rate);
 		}
 	}
 	

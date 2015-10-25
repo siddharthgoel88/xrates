@@ -33,7 +33,7 @@ public class CurrencyAdapter {
 		map.put("Norwegian Kroner", Currency.getInstance("NOK"));
 		map.put("Swedish Kroner", Currency.getInstance("SEK"));
 		map.put("Chinese Renminbi(Offshore)", Currency.getInstance("CNY"));
-		map.put("Chinese Renminbi", Currency.getInstance("CNY"));
+		map.put("Chinese Renminbi", null); //No ISO code support for CNH and RMB
 		map.put("Korean Won", Currency.getInstance("KRW"));
 		map.put("Sri Lanka Rupee", Currency.getInstance("LKR"));
 		map.put("Saudi Rial", Currency.getInstance("SAR"));
