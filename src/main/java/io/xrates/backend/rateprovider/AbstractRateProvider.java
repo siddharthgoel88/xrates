@@ -22,8 +22,8 @@ public abstract class AbstractRateProvider implements IRateProvider {
 	
 	@Autowired
 	private XratesDBUtil xratesDBUtil;
-	
-	public void update() throws RateProviderException{ 
+		
+	public double convert(Currency from, Currency to) throws RateProviderException {
 		if (rateProvider == null) {
 			throw new RateProviderException("RateProvider not set.");
 		}
@@ -37,15 +37,6 @@ public abstract class AbstractRateProvider implements IRateProvider {
 			updateRates();
 			xratesDBUtil.persistRates(rates);
 			lastUpdated = currentTime;
-		}
-	}
-		
-	public double convert(Currency from, Currency to) {
-		try {
-			update();
-		} catch (RateProviderException rpe) {
-			log.error("Error in " + this.getClass() + " : " + rpe.getMessage());
-			return -1.0;
 		}
 		return round(rates.getConversion(from, to), 2);
 	}
