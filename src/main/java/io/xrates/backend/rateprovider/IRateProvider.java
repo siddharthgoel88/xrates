@@ -11,6 +11,7 @@ import io.xrates.backend.exceptions.RateProviderException;
  * 
  * */
 public interface IRateProvider {
-	public double convert(Currency baseCurrency, Currency targetCurrency) throws RateProviderException;
+	public double convert(Currency baseCurrency, Currency targetCurrency);
+	public void update() throws RateProviderException;
 	public RateProvider getRateProvider();
 }

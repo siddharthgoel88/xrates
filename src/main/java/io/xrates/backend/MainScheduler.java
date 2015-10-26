@@ -1,7 +1,6 @@
 package io.xrates.backend;
 
 import io.xrates.backend.datamodel.dao.UserDao;
-import io.xrates.backend.exceptions.RateProviderException;
 import io.xrates.backend.ratecheck.BusinessLogic;
 import io.xrates.backend.rateprovider.IRateProvider;
 
@@ -37,16 +36,12 @@ public class MainScheduler {
 		log.debug("Running scheduler");
 		
 		for (int i = 0;i<this.rateProviders.size();i++){
-			try {
 				log.info(rateProviders.get(i).getRateProvider().getProviderName() + 
 						" : For 1 "+Currency.getInstance("SGD").getDisplayName() +
 						" you get " + String.valueOf( 
 							this.rateProviders.get(i).convert(Currency.getInstance("SGD"), 
 							Currency.getInstance("INR"))) 
 							+ " " + Currency.getInstance("INR").getDisplayName());
-			} catch (RateProviderException e) {
-				log.error("Error in " + rateProviders.getClass() + " :" + e.getMessage());
-			}
 		}
 		
 		bl.process();
