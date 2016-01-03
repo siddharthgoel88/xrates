@@ -31,7 +31,7 @@ public class MainScheduler {
 	@Autowired
 	private BusinessLogic bl;
 	
-	@Scheduled(fixedRate = 10000)
+	@Scheduled(cron="0 15 9-18 * * MON-FRI")
 	@Transactional
 	public void getRate() throws IOException {
 		log.debug("Running scheduler");
