@@ -5,7 +5,6 @@ import io.xrates.backend.datamodel.beans.Conversion;
 import io.xrates.backend.datamodel.beans.Service;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 

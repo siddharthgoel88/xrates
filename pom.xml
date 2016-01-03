@@ -71,6 +71,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+		<dependency>
+			<groupId>io.github.siddharthgoel88</groupId>
+			<artifactId>feku</artifactId>
+			<version>1.0.0</version>
+		</dependency>
     </dependencies>
 
     <build>

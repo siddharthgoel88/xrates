@@ -5,10 +5,10 @@
  * */
 
 package io.xrates.backend.rateprovider.impl;
+import io.github.siddharthgoel88.useragents.impl.Feku;
 import io.xrates.backend.constants.RateProvider;
 import io.xrates.backend.rateprovider.AbstractRateProvider;
 import io.xrates.backend.rateprovider.util.CurrencyAdapter;
-import io.xrates.backend.rateprovider.util.UserAgentFactory;
 
 import java.io.IOException;
 import java.util.Currency;
@@ -46,7 +46,7 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 	
 	private Document getDocument() throws IOException {
 		Document doc = Jsoup.connect(resourceURL)
-						.userAgent(UserAgentFactory.getRandomUserAgent())
+						.userAgent(Feku.getChrome().getLatestUserAgent())
 						.referrer("https://www.google.com/")
 						.get();
 		return doc;

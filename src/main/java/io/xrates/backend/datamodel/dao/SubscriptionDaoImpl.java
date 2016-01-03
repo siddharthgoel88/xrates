@@ -6,9 +6,7 @@ import io.xrates.backend.datamodel.beans.User;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Query;
 

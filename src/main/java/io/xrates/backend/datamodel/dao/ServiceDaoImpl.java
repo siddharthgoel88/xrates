@@ -4,7 +4,6 @@ import io.xrates.backend.datamodel.beans.Provider;
 import io.xrates.backend.datamodel.beans.Service;
 
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 import javax.persistence.NoResultException;

@@ -1,8 +1,8 @@
 package io.xrates.backend.rateprovider.impl;
 
+import io.github.siddharthgoel88.useragents.impl.Feku;
 import io.xrates.backend.constants.RateProvider;
 import io.xrates.backend.rateprovider.AbstractRateProvider;
-import io.xrates.backend.rateprovider.util.UserAgentFactory;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,7 +17,6 @@ import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 //@Component
 public class RemitGuruRateProviderImpl extends AbstractRateProvider {
@@ -41,7 +40,7 @@ public class RemitGuruRateProviderImpl extends AbstractRateProvider {
         uc.addRequestProperty("Origin", "http://www.remitguru.com");
         uc.addRequestProperty("Accept-Encoding","gzip, deflate, value");
         uc.addRequestProperty("Accept-Language","en-US,en;q=0.8,hi;q=0.6");
-        uc.addRequestProperty("User-Agent", UserAgentFactory.getRandomUserAgent());
+        uc.addRequestProperty("User-Agent", Feku.getFirefox().getLatestUserAgent());
         uc.addRequestProperty("Content-type", "application/x-www-form-urlencoded");
         uc.addRequestProperty("Accept", "/");
         uc.addRequestProperty("Referer","http://www.remitguru.com/");

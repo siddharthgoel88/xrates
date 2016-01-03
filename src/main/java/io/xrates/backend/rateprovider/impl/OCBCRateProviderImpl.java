@@ -1,19 +1,18 @@
 package io.xrates.backend.rateprovider.impl;
 
+import io.xrates.backend.constants.RateProvider;
+import io.xrates.backend.rateprovider.AbstractRateProvider;
+
 import java.io.IOException;
 import java.util.Currency;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-import io.xrates.backend.Rates;
-import io.xrates.backend.constants.RateProvider;
-import io.xrates.backend.rateprovider.AbstractRateProvider;
 
 @Component
 public class OCBCRateProviderImpl extends AbstractRateProvider{

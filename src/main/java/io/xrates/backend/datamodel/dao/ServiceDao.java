@@ -3,7 +3,6 @@ package io.xrates.backend.datamodel.dao;
 import io.xrates.backend.datamodel.beans.Provider;
 import io.xrates.backend.datamodel.beans.Service;
 
-import java.util.Currency;
 import java.util.List;
 
 public interface ServiceDao extends Dao<Service> {

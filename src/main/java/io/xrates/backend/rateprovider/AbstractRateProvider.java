@@ -17,13 +17,13 @@ public abstract class AbstractRateProvider implements IRateProvider {
 	protected Rates rates = null;
 	private RateProvider rateProvider = null;
 	private long lastUpdated = -1;
-	private long stalenessTime = 300000; //Data which is stale up to 5 minutes is fine
+	private long stalenessTime = 5 * 60 * 1000; //Data which is stale up to 5 minutes is fine
 	private Logger log = LoggerFactory.getLogger(AbstractRateProvider.class.getName());
 	
 	@Autowired
 	private XratesDBUtil xratesDBUtil;
 		
-	public double convert(Currency from, Currency to) throws RateProviderException {
+	public void update() throws RateProviderException {
 		if (rateProvider == null) {
 			throw new RateProviderException("RateProvider not set.");
 		}
@@ -37,6 +37,16 @@ public abstract class AbstractRateProvider implements IRateProvider {
 			updateRates();
 			xratesDBUtil.persistRates(rates);
 			lastUpdated = currentTime;
+		} else {
+			log.info("Not updating the rates as it is last updates < "
+					+ stalenessTime/1000 + " seconds ago."  );
+		}
+	}
+	
+	public double convert(Currency from, Currency to) throws RateProviderException {
+		if (rates == null) {
+			log.info("Found rates null so updating it.");
+			update();
 		}
 		return round(rates.getConversion(from, to), 2);
 	}
