@@ -92,4 +92,15 @@ public class ConversionDaoImpl extends AbstractDao<Conversion> implements Conver
 			return null;
 		}
 	}
+	
+	@Override
+	public List<Conversion> todayNotified(Service service) {
+		Query q = entityManager.createQuery("select c from Conversion c "
+				+ "where service = :service and status = :status "
+				+ "and DATE(conversion_timestamp) = CURDATE() ");
+		q.setParameter("service", service);
+		q.setParameter("status", Constants.NOTIFIED);
+		List<Conversion> result = q.getResultList();
+		return result;
+	}
 }

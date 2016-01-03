@@ -11,4 +11,5 @@ public interface ConversionDao extends Dao<Conversion>{
 	public Conversion findLastClosingRate(Conversion currentRate);
 	public List<Conversion> findAllNotifyAlert();
 	public Conversion findNotifyAlert(Service service);
+	public List<Conversion> todayNotified(Service service);
 }

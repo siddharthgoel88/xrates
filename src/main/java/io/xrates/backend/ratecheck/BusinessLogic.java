@@ -40,7 +40,7 @@ public class BusinessLogic {
 			Conversion closingRate = conversionDao.findLastClosingRate(currentRate);
 			double change = checkChange(closingRate, currentRate);
 			currentRate.setPercentChange(change);
-			if (Math.abs(change) >= TRIGGER) {
+			if (Math.abs(change) >= TRIGGER && !isNotified(currentRate.getService())) {
 				currentRate.setStatus(Constants.NOTIFY_ALERT);
 			} else {
 				currentRate.setStatus(Constants.PROCESSED);
@@ -49,6 +49,15 @@ public class BusinessLogic {
 		}
 	}
 	
+	private boolean isNotified(Service service) {
+		List<Conversion> result = conversionDao.
+				todayNotified(service);
+		if (result == null) {
+			return false;
+		}
+		return result.size() > 0;
+	}
+
 	public void notifyAlerts() {
 		List<Conversion> notifyAlerts = conversionDao.findAllNotifyAlert();
 		Set<Service> notifyServices = new HashSet<Service>();
@@ -73,10 +82,10 @@ public class BusinessLogic {
 		}
 		
 		log.debug("Marking " + notifyAlerts.size() + " records "
-				+ "as PROCESSED");
+				+ "as NOTIFIED");
 		for (Conversion notifiedAlert:notifyAlerts) {
 			//mark the alert as PROCESSED
-			notifiedAlert.setStatus(Constants.PROCESSED);
+			notifiedAlert.setStatus(Constants.NOTIFIED);
 			conversionDao.update(notifiedAlert);
 		}
 	}
@@ -94,8 +103,11 @@ public class BusinessLogic {
 			Service service = subscription.getService();
 			Conversion rate = conversionDao.findNotifyAlert(service);
 			subject = "[Xrates Alert] " + emailText(service, rate);
-			body = rate.getPercentChange() + "% change from last "
-					+ "closing rate" ;
+			body =  "1 " + rate.getService().getFromCurrency() + " = " +
+					round(rate.getConversionRate(), 2) + " " + 
+					rate.getService().getToCurrency() + "\n" +
+					round(rate.getPercentChange(), 2) + "% change since last "
+					+ "closing rate";
 		} else {
 			subject = "[Xrates Alert] There are rates alert in "
 					+ subscriptions.size() + " of the services "
@@ -113,12 +125,12 @@ public class BusinessLogic {
 		xratesEmail.addTo(user);
 		xratesEmail.addTextBody(body);
 		xratesEmail.addSubject(subject);
-		//xratesEmail.sendMail();
+		xratesEmail.sendMail();
 	}
 	
 	private String emailText(Service service, Conversion rate) {
 		return "1 " + service.getFromCurrency() 
-				+ " = " + rate.getConversionRate() + " "
+				+ " = " + round(rate.getConversionRate(), 2) + " "
 				+ service.getToCurrency() + " as noticed at "
 				+ rate.getConversionTimestamp() + " for "
 				+ service.getProvider().getProviderName();
@@ -131,8 +143,16 @@ public class BusinessLogic {
 		
 		double closing = closingRate.getConversionRate();
 		double current = currentRate.getConversionRate();
-		return ( (current - closing) * 100 ) / closing;
-		
+		return round(((current - closing) * 100 ) / closing , 2);
+	}
+	
+	private static double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    long factor = (long) Math.pow(10, places);
+	    value = value * factor;
+	    long tmp = Math.round(value);
+	    return (double) tmp / factor;
 	}
 	
 }
