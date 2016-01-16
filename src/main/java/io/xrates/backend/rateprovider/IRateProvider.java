@@ -2,7 +2,7 @@ package io.xrates.backend.rateprovider;
 
 import java.util.Currency;
 
-import io.xrates.backend.constants.RateProvider;
+import io.xrates.backend.constants.RateProviderDetails;
 import io.xrates.backend.exceptions.RateProviderException;
 
 /*
@@ -40,5 +40,5 @@ public interface IRateProvider {
 	 * 
 	 * @return
 	 */
-	public RateProvider getRateProvider();
+	public RateProviderDetails getRateProviderDetails();
 }

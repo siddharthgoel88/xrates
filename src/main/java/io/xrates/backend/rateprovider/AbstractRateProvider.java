@@ -1,7 +1,7 @@
 package io.xrates.backend.rateprovider;
 
 import io.xrates.backend.Rates;
-import io.xrates.backend.constants.RateProvider;
+import io.xrates.backend.constants.RateProviderDetails;
 import io.xrates.backend.datamodel.util.XratesDBUtil;
 import io.xrates.backend.exceptions.RateProviderException;
 
@@ -10,36 +10,40 @@ import java.util.Currency;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.github.lalyos.jfiglet.FigletFont;
 
 public abstract class AbstractRateProvider implements IRateProvider {
 	protected Rates rates = null;
-	private RateProvider rateProvider = null;
+	private RateProviderDetails rateProviderDetails = null;
 	private long lastUpdated = -1;
-	private long stalenessTime = 5 * 60 * 1000; //Data which is stale up to 5 minutes is fine
+	
+	@Value("${xrates.staleness.milliseconds}")
+	private long stalenessTimeInMilliSeconds;
+	
 	private Logger log = LoggerFactory.getLogger(AbstractRateProvider.class.getName());
 	
 	@Autowired
 	private XratesDBUtil xratesDBUtil;
 		
 	public void update() throws RateProviderException {
-		if (rateProvider == null) {
+		if (rateProviderDetails == null) {
 			throw new RateProviderException("RateProvider not set.");
 		}
 		
 		long currentTime = System.currentTimeMillis();
-		if (currentTime - lastUpdated > stalenessTime) {
+		if (currentTime - lastUpdated > stalenessTimeInMilliSeconds) {
 			log.info("Instantiating following service : \n" + 
-					FigletFont.convertOneLine(rateProvider.getProviderName()));
+					FigletFont.convertOneLine(rateProviderDetails.getProviderName()));
 			rates = new Rates();
-			rates.setRateProvider(rateProvider);
+			rates.setRateProvider(rateProviderDetails);
 			updateRates();
 			xratesDBUtil.persistRates(rates);
 			lastUpdated = currentTime;
 		} else {
 			log.info("Not updating the rates as it is last updates < "
-					+ stalenessTime/1000 + " seconds ago."  );
+					+ stalenessTimeInMilliSeconds/1000 + " seconds ago."  );
 		}
 	}
 	
@@ -51,12 +55,12 @@ public abstract class AbstractRateProvider implements IRateProvider {
 		return round(rates.getConversion(from, to), 2);
 	}
 
-	public RateProvider getRateProvider() {
-		return rateProvider;
+	public RateProviderDetails getRateProviderDetails() {
+		return rateProviderDetails;
 	}
 	
-	protected void setRateProvider(RateProvider rateProvider) {
-		this.rateProvider = rateProvider;
+	protected void setRateProviderDetails(RateProviderDetails rateProviderDetails) {
+		this.rateProviderDetails = rateProviderDetails;
 	}
 	
 	public Rates getRates() {

@@ -1,6 +1,6 @@
 package io.xrates.backend.rateprovider.impl;
 
-import io.xrates.backend.constants.RateProvider;
+import io.xrates.backend.constants.RateProviderDetails;
 import io.xrates.backend.rateprovider.AbstractRateProvider;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class OCBCRateProviderImpl extends AbstractRateProvider{
 	private String fromCurrency = "INR";
 	
 	public OCBCRateProviderImpl() {
-		setRateProvider(RateProvider.OCBC);
+		setRateProviderDetails(RateProviderDetails.OCBC);
 	}
 	
 	@Override

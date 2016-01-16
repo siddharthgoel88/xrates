@@ -39,7 +39,7 @@ public class MainScheduler {
 		for (int i = 0;i<this.rateProviders.size();i++){
 			try {
 				rateProviders.get(i).update();
-				log.info(rateProviders.get(i).getRateProvider().getProviderName() + 
+				log.info(rateProviders.get(i).getRateProviderDetails().getProviderName() + 
 						" : For 1 "+Currency.getInstance("SGD").getDisplayName() +
 						" you get " + String.valueOf( 
 							this.rateProviders.get(i).convert(Currency.getInstance("SGD"), 

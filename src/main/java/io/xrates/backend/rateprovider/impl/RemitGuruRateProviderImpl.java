@@ -1,7 +1,7 @@
 package io.xrates.backend.rateprovider.impl;
 
 import io.github.siddharthgoel88.useragents.impl.Feku;
-import io.xrates.backend.constants.RateProvider;
+import io.xrates.backend.constants.RateProviderDetails;
 import io.xrates.backend.rateprovider.AbstractRateProvider;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class RemitGuruRateProviderImpl extends AbstractRateProvider {
 	private int amount = 1000;
 	
 	public RemitGuruRateProviderImpl() {
-		setRateProvider(RateProvider.REMIT);
+		setRateProviderDetails(RateProviderDetails.REMIT);
 		currDetailList.add("GB~GBP~IN~INR");
 		currDetailList.add("SG~SGD~IN~INR");
 		currDetailList.add("EU~EUR~IN~INR");

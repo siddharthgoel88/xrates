@@ -6,7 +6,7 @@
 
 package io.xrates.backend.rateprovider.impl;
 import io.github.siddharthgoel88.useragents.impl.Feku;
-import io.xrates.backend.constants.RateProvider;
+import io.xrates.backend.constants.RateProviderDetails;
 import io.xrates.backend.rateprovider.AbstractRateProvider;
 import io.xrates.backend.rateprovider.util.CurrencyAdapter;
 
@@ -27,7 +27,7 @@ public class DBSRateProviderImpl extends AbstractRateProvider {
 	private Currency base = Currency.getInstance("SGD");
 	
 	public DBSRateProviderImpl() {
-		setRateProvider(RateProvider.DBS);
+		setRateProviderDetails(RateProviderDetails.DBS);
 	}
 	
 	@Override

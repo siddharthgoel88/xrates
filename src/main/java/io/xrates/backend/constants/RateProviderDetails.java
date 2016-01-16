@@ -4,7 +4,7 @@ package io.xrates.backend.constants;
  * TODO: correct the Rate Provider's id format
  * to accommodate more countries to this system. 
  */
-public enum RateProvider {
+public enum RateProviderDetails {
 	DBS(1, "DBS"),
 	OCBC(2, "OCBC"),
 	REMIT(3, "REMIT GURU");
@@ -12,7 +12,7 @@ public enum RateProvider {
 	private final long value;
 	private final String providerName;
 	
-	private RateProvider(int value, String providerName) {
+	private RateProviderDetails(int value, String providerName) {
 		this.value = value;
 		this.providerName = providerName;
 	}

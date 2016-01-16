@@ -1,7 +1,7 @@
 package io.xrates.backend.datamodel.util;
 
 import io.xrates.backend.Rates;
-import io.xrates.backend.constants.RateProvider;
+import io.xrates.backend.constants.RateProviderDetails;
 import io.xrates.backend.datamodel.beans.Conversion;
 import io.xrates.backend.datamodel.beans.Provider;
 import io.xrates.backend.datamodel.beans.Service;
@@ -58,7 +58,7 @@ public class XratesDBUtil {
 		return serviceDao.findService(fromCurrency, toCurrency, provider);
 	}
 	
-	private Provider getOrCreateProvider(RateProvider rateProvider) {
+	private Provider getOrCreateProvider(RateProviderDetails rateProvider) {
 		return providerDao.findProvider(rateProvider);
 	}
 }

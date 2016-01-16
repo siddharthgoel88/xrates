@@ -5,7 +5,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import io.xrates.backend.constants.RateProvider;
+import io.xrates.backend.constants.RateProviderDetails;
 import io.xrates.backend.datamodel.beans.Provider;
 
 @Repository
@@ -13,7 +13,7 @@ import io.xrates.backend.datamodel.beans.Provider;
 public class ProviderDaoImpl extends AbstractDao<Provider> implements ProviderDao {
 
 	@Override
-	public Provider findProvider(RateProvider rateProvider) {
+	public Provider findProvider(RateProviderDetails rateProvider) {
 		Provider provider = get((Long) rateProvider.getValue());
 		
 		if (provider == null) {
