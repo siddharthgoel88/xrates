@@ -18,19 +18,25 @@ public class RatesRESTController {
 	
 	Logger log = LoggerFactory.getLogger(RatesRESTController.class.getName());
 	
+	private static final String CONTEXT_PATH  = "/xrates_rest/v1/";
+	
+	private static final String GET_RATES = "/get_rates";
+	
 	@Autowired
 	private DBSRateProviderImpl dbs;
 	
 	@Autowired
 	private OCBCRateProviderImpl ocbc;
 	
-	@RequestMapping(value = "/v1/exchangeRates/dbs", method = RequestMethod.GET)
+	@RequestMapping(value = CONTEXT_PATH + "dbs" + GET_RATES, 
+			method = RequestMethod.GET)
 	public Rates getDBSRates(HttpServletRequest request) {
 		log.info("Received GET request for DBS from IP=" + request.getRemoteAddr());
 		return getRates(dbs);
 	}
 	
-	@RequestMapping(value = "/v1/exchangeRates/ocbc", method = RequestMethod.GET)
+	@RequestMapping(value = CONTEXT_PATH + "ocbc" + GET_RATES, 
+			method = RequestMethod.GET)
 	public Rates getOCBCRates(HttpServletRequest request) {
 		log.info("Received GET request for OCBC from IP=" + request.getRemoteAddr());
 		return getRates(ocbc);
