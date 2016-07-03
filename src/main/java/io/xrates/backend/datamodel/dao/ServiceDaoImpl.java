@@ -5,6 +5,7 @@ import io.xrates.backend.datamodel.beans.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -70,5 +71,19 @@ public class ServiceDaoImpl extends AbstractDao<Service> implements ServiceDao {
 		query.setParameter("fromCurrency", fromCurrency);
 		List<String> result = query.getResultList();
 		return result;
+	}
+	
+	@Override
+	public List<String> findAllFromCurrencies(){
+		Query query = entityManager.createQuery("select DISTINCT service.fromCurrency from Service service");
+		List<String> allFromCurrencies = query.getResultList();
+		return allFromCurrencies;
+	}
+	
+	@Override
+	public List<String> findAllToCurrencies(){
+		Query query = entityManager.createQuery("select DISTINCT service.toCurrency from Service service");
+		List<String> allFromCurrencies = query.getResultList();
+		return allFromCurrencies;
 	}
 }

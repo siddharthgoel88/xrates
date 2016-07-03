@@ -9,7 +9,7 @@ public class SubscriptionForm {
 	private static String[] currencyList = null;
 	private String selectedCurrency = "SGD";
 	
-	static{
+	/*static{
 		int index = 0;
 		Set<Currency> currencySet = Currency.getAvailableCurrencies();
 		currencyList = new String[currencySet.size()];
@@ -17,7 +17,7 @@ public class SubscriptionForm {
 			currencyList[index++] = currency.getDisplayName();
 		}
 		Arrays.sort(currencyList);
-	}
+	}*/
 	private String emailAddress = "Your Email address: someone@somedomain.com";
 	
 	
