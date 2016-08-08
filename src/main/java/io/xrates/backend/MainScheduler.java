@@ -2,8 +2,8 @@ package io.xrates.backend;
 
 import io.xrates.backend.datamodel.dao.UserDao;
 import io.xrates.backend.exceptions.RateProviderException;
-import io.xrates.backend.ratecheck.BusinessLogic;
 import io.xrates.backend.rateprovider.IRateProvider;
+import io.xrates.backend.services.BusinessLogic;
 
 import java.io.IOException;
 import java.util.Currency;
@@ -31,7 +31,12 @@ public class MainScheduler {
 	@Autowired
 	private BusinessLogic bl;
 	
-	@Scheduled(cron="0 */15 9-18 * * MON-FRI")
+	/**
+	 * Every 15 minutes beginning 9 AM till
+	 * 6 PM on all weekdays
+	 * */
+//	@Scheduled(cron="0 */15 9-18 * * MON-FRI")
+	@Scheduled(fixedRate=10000)
 	@Transactional
 	public void getRate() throws IOException {
 		log.debug("Running scheduler");

@@ -1,4 +1,4 @@
-package io.xrates.backend.ratecheck;
+package io.xrates.backend.services;
 
 import io.xrates.backend.communication.XratesEmail;
 import io.xrates.backend.constants.Constants;

@@ -6,7 +6,7 @@ import java.util.Currency;
 
 public class SubscriptionForm {
 	
-	private static String[] currencyList = null;
+	private static Currency[] currencyList = null;
 	private String selectedCurrency = "SGD";
 	
 	/*static{
@@ -21,10 +21,10 @@ public class SubscriptionForm {
 	private String emailAddress = "Your Email address: someone@somedomain.com";
 	
 	
-	public String[] getCurrencyList() {
+	public Currency[] getCurrencyList() {
 		return currencyList;
 	}
-	public void setCurrencyList(String[] currencyList) {
+	public void setCurrencyList(Currency[] currencyList) {
 		SubscriptionForm.currencyList = currencyList;
 	}
 	public String getSelectedCurrency() {

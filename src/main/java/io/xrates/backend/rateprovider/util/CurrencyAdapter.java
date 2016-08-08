@@ -6,36 +6,50 @@ import java.util.Map;
 import java.util.Set;
 
 public class CurrencyAdapter {
-	private static Map<String, Currency> map = null;
+	private static Map<String, Currency> mapByName = null;
+	private static Map<String, Currency> mapByCode = null;
 	
 	public static Currency getInstance(String currencyName) {
-		if (map == null) {
-			map = new HashMap<String, Currency>();
+		if (mapByName == null) {
+			mapByName = new HashMap<String, Currency>();
 			Set<Currency> availableCurrencies = Currency.getAvailableCurrencies();
 			for (Currency cur : availableCurrencies) {
-				map.put(cur.getDisplayName(), cur);
+				mapByName.put(cur.getDisplayName(), cur);
 			}
-			
 			//Adding exceptions
 			addExceptions();
 		}
 		
-		if (map.containsKey(currencyName)) {
-			return map.get(currencyName);
+		if (mapByName.containsKey(currencyName)) {
+			return mapByName.get(currencyName);
 		} else {
 			return null;
 		}
 	}
 
+	public static Currency getInstanceByCode(String currencyCode) {
+		if (mapByCode == null) {
+			mapByCode = new HashMap<String, Currency>();
+			Set<Currency> avaiableCurrencies = Currency.getAvailableCurrencies();
+			for(Currency curr : avaiableCurrencies) {
+				mapByCode.put(curr.getCurrencyCode(), curr);
+			}
+		}
+		if (mapByCode.containsKey(currencyCode)) {
+			return mapByCode.get(currencyCode);
+		} else {
+			return null;
+		}
+	}
 	private static void addExceptions() {
-		map.put("Sterling Pound", Currency.getInstance("GBP"));
-		map.put("Danish Kroner", Currency.getInstance("DKK"));
-		map.put("Norwegian Kroner", Currency.getInstance("NOK"));
-		map.put("Swedish Kroner", Currency.getInstance("SEK"));
-		map.put("Chinese Renminbi(Offshore)", Currency.getInstance("CNY"));
-		map.put("Chinese Renminbi", null); //No ISO code support for CNH and RMB
-		map.put("Korean Won", Currency.getInstance("KRW"));
-		map.put("Sri Lanka Rupee", Currency.getInstance("LKR"));
-		map.put("Saudi Rial", Currency.getInstance("SAR"));
+		mapByName.put("Sterling Pound", Currency.getInstance("GBP"));
+		mapByName.put("Danish Kroner", Currency.getInstance("DKK"));
+		mapByName.put("Norwegian Kroner", Currency.getInstance("NOK"));
+		mapByName.put("Swedish Kroner", Currency.getInstance("SEK"));
+		mapByName.put("Chinese Renminbi(Offshore)", Currency.getInstance("CNY"));
+		mapByName.put("Chinese Renminbi", null); //No ISO code support for CNH and RMB
+		mapByName.put("Korean Won", Currency.getInstance("KRW"));
+		mapByName.put("Sri Lanka Rupee", Currency.getInstance("LKR"));
+		mapByName.put("Saudi Rial", Currency.getInstance("SAR"));
 	}
 }

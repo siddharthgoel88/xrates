@@ -1,5 +1,6 @@
-package io.xrates.backend;
+package io.xrates.backend.controller;
 
+import io.xrates.backend.Rates;
 import io.xrates.backend.rateprovider.AbstractRateProvider;
 import io.xrates.backend.rateprovider.impl.DBSRateProviderImpl;
 import io.xrates.backend.rateprovider.impl.OCBCRateProviderImpl;

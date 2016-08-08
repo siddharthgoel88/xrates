@@ -47,7 +47,6 @@ public class OCBCRateProviderImpl extends AbstractRateProvider{
 	
 	private void getRateForInputCurrency(String fromCurrency, Element ratesTable){
 		int tableLength = ratesTable.select("tr").size();
-		
 		for (int i = 5; i < tableLength; i++) {
 			try{
 				Element tableRow = ratesTable.select("tr").get(i);
@@ -62,7 +61,8 @@ public class OCBCRateProviderImpl extends AbstractRateProvider{
 					
 					rates.setConversion(Currency.getInstance("SGD"), Currency.getInstance("INR"), toInr);
 					rates.setConversion(Currency.getInstance("INR"), Currency.getInstance("SGD"), toSgd);
-					
+					rates.setConversion(Currency.getInstance("INR"), Currency.getInstance("AUD"), toSgd);
+					rates.setConversion(Currency.getInstance("AUD"), Currency.getInstance("INR"), toSgd);
 				}
 			}catch(IndexOutOfBoundsException e){
 				

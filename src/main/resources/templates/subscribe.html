@@ -26,7 +26,7 @@
 		        			</button>
 			        		
 		        			<ul class="dropdown-menu from-currency-dropdown">
-			        			<li th:each="currency : *{currencyList}" th:text="${currency}"> <a href="#"> ${currency} </a></li>
+			        			<li th:each="currency : *{currencyList}" th:text="${currency.currencyCode}"> <a href="#"> ${currency.currencyCode} </a></li>
 		        			</ul>
 		        		</div>
 		        	</div>
