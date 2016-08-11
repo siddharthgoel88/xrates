@@ -1,5 +1,10 @@
 (function(){
 	
+	$('select.from-currency-dropdown').select2();
+	$('span.select2-container').css('width','200px');
+	$('select.to-currency-dropdown').select2();
+	$('span.select2-container').css('width','200px');
+	
 	/*
 	 * Email Validation for Text field
 	 */
@@ -23,11 +28,15 @@
 	 * Listen for a change in fromCurrency dropdown and get relevant toCurrency options available using
 	 * an AJAX call.
 	 */
-	$('.from-currency-dropdown li').on('click', function(){
-		console.log("Option Selected " + $(this).text());
+//	$('.from-currency-dropdown li').on('click', function(){
+	$('.from-currency-dropdown').on('change', function(){
+		console.log("Option Selected " + $(this).val());
 		
-		var selectedCurrency = $(this).text();
+		var selectedCurrency = $(this).val();
 		var toCurrencyDropdownHtml = "";
+		var toCurrencyElement = $('.to-currency-dropdown');
+		//emptying dropdown in case list already appended
+		toCurrencyElement.find('option').remove();
 		
 		$(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
 		$(this).parents(".dropdown").find('.btn').val($(this).data('value'));
@@ -37,16 +46,16 @@
 			url: "/getToCurrencyList?fromCurrency=" + selectedCurrency,
 			success: function(response){
 				console.log('Ajax success. Response : ' + response);
-				var toCurrencyElement = $('.to-currency-dropdown');
+				toCurrencyDropdownHtml = '<option selected="selected" value="none">To Currency</option>';
 				for(i =0; i<response.length; i++){
-					toCurrencyDropdownHtml += "<li>" + response[i] + "</li>"
+					toCurrencyDropdownHtml += '<option value="' + response[i] + '">' + response[i] + '</option>'
 				}
 				toCurrencyElement.append(toCurrencyDropdownHtml);
 			},
 			error: function(){
 				console.log('An error occured while making AJAX call');
 			}
-		}); 
+		});
 	});
 	
 	/*
@@ -81,5 +90,10 @@
 				console.log('An error occured while making AJAX call');
 			}
 		});
-	});		
+	});
+	
+	
 })();
+
+
+

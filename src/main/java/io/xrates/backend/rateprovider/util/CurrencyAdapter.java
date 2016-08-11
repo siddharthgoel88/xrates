@@ -5,9 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CurrencyAdapter {
 	private static Map<String, Currency> mapByName = null;
 	private static Map<String, Currency> mapByCode = null;
+	private static Logger log = LoggerFactory.getLogger(CurrencyAdapter.class.getName());
 	
 	public static Currency getInstance(String currencyName) {
 		if (mapByName == null) {
@@ -28,16 +32,22 @@ public class CurrencyAdapter {
 	}
 
 	public static Currency getInstanceByCode(String currencyCode) {
-		if (mapByCode == null) {
-			mapByCode = new HashMap<String, Currency>();
-			Set<Currency> avaiableCurrencies = Currency.getAvailableCurrencies();
-			for(Currency curr : avaiableCurrencies) {
-				mapByCode.put(curr.getCurrencyCode(), curr);
-			}
-		}
-		if (mapByCode.containsKey(currencyCode)) {
-			return mapByCode.get(currencyCode);
-		} else {
+//		if (mapByCode == null) {
+//			mapByCode = new HashMap<String, Currency>();
+//			Set<Currency> avaiableCurrencies = Currency.getAvailableCurrencies();
+//			for(Currency curr : avaiableCurrencies) {
+//				mapByCode.put(curr.getCurrencyCode(), curr);
+//			}
+//		}
+//		if (mapByCode.containsKey(currencyCode)) {
+//			return mapByCode.get(currencyCode);
+//		} else {
+//			return null;
+//		}
+		try {
+			return Currency.getInstance(currencyCode);
+		} catch (IllegalArgumentException e) {
+			log.info("Currency code {} a supported ISO 4217 code", currencyCode);
 			return null;
 		}
 	}

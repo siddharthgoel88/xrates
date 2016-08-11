@@ -5,6 +5,7 @@
 <title>Getting Started: Handing Form Submission</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="../static/css/lib/bootstrap.min.css" th:href="@{/css/lib/bootstrap.min.css}"/>
+<link rel="stylesheet" type="text/css" href="../static/css/lib/select2.min.css" th:href="@{/css/lib/select2.min.css}"/>
 <link rel="stylesheet" type="text/css" href="../static/css/subscribe.css" th:href="@{/css/subscribe.css}"/>	
 </head>
 <body>
@@ -20,25 +21,34 @@
 		    	
 		        <div class="row"> 
 		        	<div class="float-left">
-		        		<div class="dropdown">
+		        		<select class="currency-dropdown from-currency-dropdown" name="fromCurrency">
+							<option selected="selected" value="none">From Currency</option>
+							<option th:each="currency : *{currencyList}" th:text="${currency.getDisplayName()}" tch:value="${currency.currencyCode}"></option>
+						</select>
+		        		<!-- <div class="dropdown">
+		        			
 			        		<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
 		        				From Currency  <span class="caret"></span>
 		        			</button>
 			        		
 		        			<ul class="dropdown-menu from-currency-dropdown">
-			        			<li th:each="currency : *{currencyList}" th:text="${currency.currencyCode}"> <a href="#"> ${currency.currencyCode} </a></li>
+			        			<li th:each="currency : *{currencyList}" th:text="${currency.getDisplayName()}" th:value="${currency.getDisplayName()}"> <a href="#"></a></li>
 		        			</ul>
-		        		</div>
+		        		</div> -->
 		        	</div>
 		              	
 		        	<div class="float-right">
-		        		<div class="dropdown">
+		        		<select class="currency-dropdown to-currency-dropdown" name="fromCurrency">
+							<option selected="selected" value="none">To Currency</option>
+							<!-- <option th:each="currency : *{currencyList}" th:text="${currency.getDisplayName()}" tch:value="${currency.currencyCode}"></option> -->
+						</select>
+		        		<!-- <div class="dropdown">
 			        		<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
 		        				To Currency  <span class="caret"></span>
 		        			</button>
 			        		
 		        			<ul class="dropdown-menu to-currency-dropdown"></ul>
-		        		</div>
+		        		</div> -->
 		        	</div>
 		        	<div class="to-label form-green">TO</div>
 		        </div>
@@ -59,6 +69,7 @@
     </div>
     <script src = "../static/js/lib/jquery-2.1.4.min.js" th:src="@{/js/lib/jquery-2.1.4.min.js}"></script>
     <script src = "../static/js/lib/bootstrap.min.js" th:src="@{/js/lib/bootstrap.min.js}"></script>
+    <script src = "../static/js/lib/select2.min.js" th:src="@{/js/lib/select2.min.js}"></script>
     <script src = "../static/js/subscribe.js" th:src="@{/js/subscribe.js}"></script>
 
 </body>
